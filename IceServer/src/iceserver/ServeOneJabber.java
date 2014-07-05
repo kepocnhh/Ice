@@ -98,8 +98,9 @@ public class ServeOneJabber extends Thread
     String logdir;
     static String fonts;
     String debug;
+    static String version;
 
-    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String debug) throws IOException
+    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String debug, String version) throws IOException
     {
         socket = s;
         this.toreg = toreg;
@@ -107,7 +108,7 @@ public class ServeOneJabber extends Thread
         this.logdir = logdir;
         this.fonts = fonts;
         this.debug = debug;
-
+        this.version = version;
 
         start(); // вызываем run()
     }
@@ -140,18 +141,51 @@ public class ServeOneJabber extends Thread
 
         BaseMessage StatusSession = GetStatusSession(authuser, dir); //= (BaseMessage) new ping("loginok");
         //ping tmp = (ping)StatusSession;
+        if (((ping) StatusSession).GetPing().equals("ErrorStatusSession"))
+        {
+            System.out.println(new Date().toString() + " Лох-Несский баг " + authuser.GetMail());
+        }
         if (((ping) StatusSession).GetPing().equals("NewSession"))
         {
             System.out.println(new Date().toString() + " NewSession " + authuser.GetMail());
 
+            
             filename = CreateFileName(authuser);
+            
         }
         else
         {
-            System.out.println(new Date().toString() + " Not new session" + authuser.GetMail());
-            filename = FileName(authuser);
+            if (((ping) StatusSession).GetPing().equals("opens"))
+            {
+                System.out.println(new Date().toString() + " Сессия открывается " + authuser.GetMail());
+
+                StatusSession = new ping("NewSession");
+                filename = FileName(authuser);
+
+            }
+            else
+    //        //if (((ping) StatusSession).GetPing().equals("opens"))
+            {
+                System.out.println(new Date().toString() + " Not new session" + authuser.GetMail());
+                filename = FileName(authuser);
+            }
         }
         String fullname = dir + "/" + filename;
+        
+        //DEBUG создадим пустой файл для логов
+//        try
+//        {
+//            File f = new File(fullname);
+//            if (!f.exists())
+//            {
+//                f.createNewFile();
+//            }
+//        }
+//        catch (IOException ex)
+//        {
+//            Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        //
 
         try
         {
@@ -218,9 +252,7 @@ public class ServeOneJabber extends Thread
                     }
                     if (p.getTypeEvent() == DataForRecord.TypeEvent.open)
                     {
-
                         System.out.println(new Date().toString() + " Is DFR.open " + authuser.GetMail());
-
                         try
                         {
                             //pdfname = p.nameshop + " " + filename + " " + p.getTypeEvent().toString();
@@ -307,6 +339,32 @@ public class ServeOneJabber extends Thread
                             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
                         }
 
+
+//                        System.out.println(new Date().toString() + " Is DFR.open " + authuser.GetMail()); //это для лога
+//
+//                        pdfname = p.nameshop + " " + filename + " " + Translate(p.getTypeEvent()); // Создание имени пдф
+//                        System.out.println(new Date().toString() + " Create pdf " + authuser.GetMail());
+//                        
+//                        List<BaseMessage> loglist = GetLogList(fullname);   //Попытка прочитать лист из файла. Если файла или листа нет - вернёт null
+//                        
+//                        if(loglist == null) //Если смена ещё не открывалась
+//                        {
+//                            loglist = new ArrayList<BaseMessage>();
+//                            loglist.add(bm);
+//                            
+//                            try {
+//                                CreatePDF._CreatePDF(new Strings(), authuser,
+//                                        //GetDFR(DataForRecord.TypeEvent.open,fullname),
+//                                        p, bm.GetDate(),
+//                                        pdfdir + "/", pdfname);
+//                            } catch (DocumentException ex) {
+//                                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
+//                            }
+//                        }
+//                        else    //Если смена уже открыта или всё такая кровать
+//                        {
+//                            
+//                        }
 
                     }
                     if (p.getTypeEvent() == DataForRecord.TypeEvent.close)
@@ -460,19 +518,19 @@ public class ServeOneJabber extends Thread
                             double mulctall = mulctdelay + mulct;
                             double s_m = salaryall - mulctall;
                             pdfname = "recordok\t"
-                                    + salary
+                                    + salary//зарплата за рабочее время
                                     + "\t"
-                                    + salaryprcnt
+                                    + salaryprcnt//процент с проданых шапок
                                     + "\t"
-                                    + salaryall
+                                    + salaryall//зарплата итого
                                     + "\t"
-                                    + mulctdelay
+                                    + mulctdelay//штраф за опоздание
                                     + "\t"
-                                    + mulct
+                                    + mulct//штраф за перевес
                                     + "\t"
-                                    + mulctall
+                                    + mulctall//штраф итого
                                     + "\t"
-                                    + s_m;
+                                    + s_m;//итого на руки
 
                             System.out.println(new Date().toString() + " " + "DFRrequest" + pdfname);
                             outputStream.writeObject((BaseMessage) new ping(pdfname));
@@ -658,7 +716,7 @@ public class ServeOneJabber extends Thread
                         System.out.println(new Date().toString() + " login");
 
                         login log = (login) bm;
-                        if (log.Authentication())
+                        if (log.Authentication(accounts))
                         {
                             System.out.println(new Date().toString() + " goto AuthMessaging");
 
@@ -679,11 +737,19 @@ public class ServeOneJabber extends Thread
                     {
                         System.out.println(new Date().toString() + " ping");
 
-                        ping p = (ping) bm;
-                        BaseMessage request = (BaseMessage) new Strings();
-                        outputStream.writeObject(request);
-                        System.out.println(p.GetPing() + " device ON");
-                        continue;
+                        if(bm.GetVersion().equals(version))
+                        {
+                            ping p = (ping) bm;
+                            BaseMessage request = (BaseMessage) new Strings();
+                            outputStream.writeObject(request);
+                            System.out.println(p.GetPing() + " device ON");
+                            continue;
+                        }
+                        else
+                        {
+                            BaseMessage request = (BaseMessage) new ping("UsedOldVersion");
+                            outputStream.writeObject(request);
+                        }
                     }
 
                     if (c == user.class)//Добавление заявки на регистрацию
@@ -739,7 +805,7 @@ public class ServeOneJabber extends Thread
 
                         //Поиск юзверя по мылуe
                         //EmbeddedImageEmailUtil.sendTextmessage(f.log, "Пароль", f.RecoveryPassword());
-                        String s = f.RecoveryPassword();
+                        String s = f.RecoveryPassword(accounts);
                         BaseMessage request;
                         if (s.length() == 4)
                         {
@@ -748,7 +814,7 @@ public class ServeOneJabber extends Thread
                             request = (BaseMessage) new ping("forgetok");
                             try
                             {
-                                EmbeddedImageEmailUtil.sendTextmessage(f.log, "Пароль", f.RecoveryPassword());
+                                EmbeddedImageEmailUtil.sendTextmessage(f.log, "Пароль", f.RecoveryPassword(accounts));
 
                                 System.out.println(new Date().toString() + " Password will be send");
                             }
@@ -947,7 +1013,9 @@ public class ServeOneJabber extends Thread
 //            {
 //                return FileName + "_0";
 //            }
+//            return FileName + " " + (ls.length - 2);    //DEBUG для супера
             return FileName + " " + (ls.length - 3);    //DEBUG для супера
+            //return FileName + " " + (ls.length - 4);    //DEBUG для супера
         }
     }
 
@@ -973,7 +1041,7 @@ public class ServeOneJabber extends Thread
                         if ((loglist = (List<BaseMessage>) read.readObject()) != null)
                         {
                             Class c;
-                            short open = 0, close = 0, drug = 0, steal = 0;
+                            short open = 0, close = 0, drug = 0, steal = 0, opens = 0;
                             for (BaseMessage bm : loglist)//Подсчитать количество объектов каждого типа в листе лога
                             {
                                 c = bm.getClass();
@@ -1002,13 +1070,24 @@ public class ServeOneJabber extends Thread
                                         continue;
                                     }
                                 }
+                                if(c == ping.class)
+                                {
+                                    if(((ping)bm).GetPing().equals("open"))
+                                    {
+                                        opens++;
+                                    }
+                                }
                             }
                             if (!authuser.GetSuper())//Если это НЕ супер
                             {
                                 if (open == 1 && close == 0) //Сессия открыта, но не закрыта
                                 {
-                                    return (BaseMessage) new ping("open");
+                                    return (BaseMessage) new ping("open"); //открывается
                                 }
+                                
+                                //DEBUG Сессия в процессе открытия
+                                
+                                //
                                 if (open == 0 && close == 0) //Новая сессия
                                 {
                                     return (BaseMessage) new ping("NewSession");
@@ -1017,9 +1096,14 @@ public class ServeOneJabber extends Thread
                                 {
                                     return (BaseMessage) new ping("SessionClose");
                                 }
+                                return (BaseMessage) new ping("ErrorStatusSession"); //Лох-Несский баг
                             }
                             else
                             {
+                                if(opens >= 1 && open == 0)
+                                {
+                                    return (BaseMessage) new ping("opens");
+                                }
                                 if (open == 1 && close == 0) //Сессия открыта, но не закрыта
                                 {
                                     return (BaseMessage) new ping("open");
