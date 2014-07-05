@@ -30,13 +30,14 @@ public class login
         this.pass = curpass;
     }
 
-    public boolean Authentication()
+    public boolean Authentication(String path)
     {
         ObjectInputStream read = null;
         try
         {
             //ObjectInputStream read = new ObjectInputStream(new FileInputStream("..//accounts//account"));
-            read = new ObjectInputStream(new FileInputStream("..//accounts//account"));
+            //read = new ObjectInputStream(new FileInputStream("..//accounts//account"));
+            read = new ObjectInputStream(new FileInputStream(path));
             List<String> loglist;
             if ((loglist = (List) read.readObject()) != null)
             {
@@ -74,36 +75,36 @@ public class login
         return false;
     }
 
-    public boolean OLDAuthentication()
-    {
-        try
-        {
-            ObjectInputStream read = new ObjectInputStream(new FileInputStream("..//accounts//account"));
-            List<BaseMessage> loglist;
-            if ((loglist = (List) read.readObject()) != null)
-            {
-                for (BaseMessage object : loglist)
-                {
-                    user nextuser = (user) object;
-                    if (nextuser.mail.equals(this.log))
-                    {
-                        return true;
-                    }
-                }
-            }
-            return false;
-        }
-        catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("Error opening file for authentication. FileNotFound.");
-        }
-        catch (IOException | ClassNotFoundException ex)
-        {
-            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
+//    public boolean OLDAuthentication()
+//    {
+//        try
+//        {
+//            ObjectInputStream read = new ObjectInputStream(new FileInputStream("..//accounts//account"));
+//            List<BaseMessage> loglist;
+//            if ((loglist = (List) read.readObject()) != null)
+//            {
+//                for (BaseMessage object : loglist)
+//                {
+//                    user nextuser = (user) object;
+//                    if (nextuser.mail.equals(this.log))
+//                    {
+//                        return true;
+//                    }
+//                }
+//            }
+//            return false;
+//        }
+//        catch (FileNotFoundException ex)
+//        {
+//            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+//            System.err.println("Error opening file for authentication. FileNotFound.");
+//        }
+//        catch (IOException | ClassNotFoundException ex)
+//        {
+//            Logger.getLogger(login.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return false;
+//    }
 
     public user GetUser()
     {

@@ -19,7 +19,7 @@ public class BaseMessage
         implements Serializable
 {
 
-    int ui = 0;
+    private String version;
     private Date date;
     private double placex;
     private double placey;
@@ -52,18 +52,18 @@ public class BaseMessage
 
     public BaseMessage()
     {
-        this.ui = 2;
+        //this. = 2;
         this.date = new Date();
     }
 
-    public int GetUI()
+    public String GetVersion()
     {
-        return this.ui;
+        return this.version;
     }
 
-    public void SetUI(int i)
+    public void SetVersion(String v)
     {
-        this.ui = i;
+        this.version = v;
     }
 
     public void AddMessage(String path)

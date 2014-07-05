@@ -18,12 +18,13 @@ public class forget
         this.log = curlog;
     }
 
-    public String RecoveryPassword()
+    public String RecoveryPassword(String path)
     {
         ObjectInputStream read = null;
         try
         {
-            read = new ObjectInputStream(new FileInputStream("..//accounts//account"));
+            //read = new ObjectInputStream(new FileInputStream("..//accounts//account"));
+            read = new ObjectInputStream(new FileInputStream(path));
             List<String> list;
             if ((list = (List) read.readObject()) != null)
             {

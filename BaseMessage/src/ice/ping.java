@@ -16,10 +16,19 @@
 /* 16:   */   {
 /* 17:23 */     this.ping = message;
 /* 18:   */   }
+   public ping(String message, String version)
+   {
+     this.ping = message;
+     this.SetVersion(version);
+   }
 /* 19:   */ }
 
-
-/* Location:           D:\Documents\NetBeans\IceTestClient\lib\BaseMessage.jar
- * Qualified Name:     ice.ping
- * JD-Core Version:    0.7.0.1
+
+
+/* Location:           D:\Documents\NetBeans\IceTestClient\lib\BaseMessage.jar
+
+ * Qualified Name:     ice.ping
+
+ * JD-Core Version:    0.7.0.1
+
  */
