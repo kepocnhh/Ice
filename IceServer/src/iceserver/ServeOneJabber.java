@@ -99,8 +99,9 @@ public class ServeOneJabber extends Thread
     static String fonts;
     String debug;
     static String version;
+    static List<String> maillist;
 
-    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String debug, String version) throws IOException
+    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String debug, String version, String maillist) throws IOException
     {
         socket = s;
         this.toreg = toreg;
@@ -109,6 +110,7 @@ public class ServeOneJabber extends Thread
         this.fonts = fonts;
         this.debug = debug;
         this.version = version;
+        this.maillist = GetMailList(maillist);
 
         start(); // вызываем run()
     }
@@ -120,9 +122,9 @@ public class ServeOneJabber extends Thread
 
     private void AuthMessaging(user authuser, ObjectOutputStream outputStream, ObjectInputStream inputStream)
     {
-        System.out.println(new Date().toString() + " AuthMessaging " + authuser.GetMail());
+        System.out.println(new Date().toString() + " Auth Successful " + authuser.GetMail());
 
-        System.out.println(new Date().toString() + " Создание папки для пользователя " + authuser.GetMail());
+        //System.out.println(new Date().toString() + " Создание папки для пользователя " + authuser.GetMail());
 
         String dir = CreateLogDirName(authuser);
         File myPath = new File(dir);
@@ -139,19 +141,16 @@ public class ServeOneJabber extends Thread
         String filename;
 
 
-        BaseMessage StatusSession = GetStatusSession(authuser, dir); //= (BaseMessage) new ping("loginok");
-        //ping tmp = (ping)StatusSession;
+        BaseMessage StatusSession = GetStatusSession(authuser, dir); 
+        
         if (((ping) StatusSession).GetPing().equals("ErrorStatusSession"))
         {
             System.out.println(new Date().toString() + " Лох-Несский баг " + authuser.GetMail());
         }
         if (((ping) StatusSession).GetPing().equals("NewSession"))
         {
-            System.out.println(new Date().toString() + " NewSession " + authuser.GetMail());
-
-            
+            System.out.println(new Date().toString() + " NewSession " + authuser.GetMail());    
             filename = CreateFileName(authuser);
-            
         }
         else
         {
@@ -166,32 +165,17 @@ public class ServeOneJabber extends Thread
             else
     //        //if (((ping) StatusSession).GetPing().equals("opens"))
             {
-                System.out.println(new Date().toString() + " Not new session" + authuser.GetMail());
+                System.out.println(new Date().toString() + " Not new session " + authuser.GetMail());
                 filename = FileName(authuser);
             }
         }
         String fullname = dir + "/" + filename;
-        
-        //DEBUG создадим пустой файл для логов
-//        try
-//        {
-//            File f = new File(fullname);
-//            if (!f.exists())
-//            {
-//                f.createNewFile();
-//            }
-//        }
-//        catch (IOException ex)
-//        {
-//            Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        //
 
         try
         {
             outputStream.writeObject(StatusSession);
 
-            System.out.println(new Date().toString() + " StatusSession will be send");
+            System.out.println(new Date().toString() + " StatusSession will be send to " + authuser.GetMail());
 
 
             BaseMessage bm;
@@ -203,28 +187,9 @@ public class ServeOneJabber extends Thread
                 Class c = bm.getClass();
                 if (c == ping.class)
                 {
-
-
-
                     bm.AddMessage(fullname);
                     ping p = (ping) bm;
                     System.out.println(new Date().toString() + " ping " + p.GetPing() + " " + authuser.GetMail());
-//                    if(p.GetPing().equals("open"))
-//                    {
-//                        
-//                    }
-//                    if(p.GetPing().equals("close"))
-//                    {
-//                        
-//                    }
-//                    if(p.GetPing().equals("steal"))
-//                    {
-//                        
-//                    }
-//                    if(p.GetPing().equals("drug"))
-//                    {
-//                        
-//                    }
                     outputStream.writeObject(p);
                     continue;
                 }
@@ -234,22 +199,22 @@ public class ServeOneJabber extends Thread
                     System.out.println(new Date().toString() + " DFR " + authuser.GetMail());
 
                     DataForRecord p = (DataForRecord) bm;
-//                    String pdfname = filename + "_"
-//                            + p.getTypeEvent().toString();
                     String pdfname = "";
 
-                    String email1;
-                    String email2;
-                    if (debug.equals("debug"))
-                    {
-                        email1 = "a.haruk@gmail.com";
-                        email2 = "iceandgoit@gmail.com";
-                    }
-                    else
-                    {
-                        email1 = "medvedev@rosintec.com";
-                        email2 = "kositsyn@rosintec.com";
-                    }
+                    //String email1;
+                    //String email2;
+//                    if (debug.equals("debug"))
+//                    {
+//                        for (String mail : maillist) 
+//                        {
+//                            
+//                        }
+//                    }
+//                    else
+//                    {
+////                        email1 = "medvedev@rosintec.com";
+////                        email2 = "kositsyn@rosintec.com";
+//                    }
                     if (p.getTypeEvent() == DataForRecord.TypeEvent.open)
                     {
                         System.out.println(new Date().toString() + " Is DFR.open " + authuser.GetMail());
@@ -278,7 +243,7 @@ public class ServeOneJabber extends Thread
                             else
                             {
                                 pdfname = "LogListIsEmpty";
-                                System.out.println(new Date().toString() + " " + "DFRrequest" + pdfname);
+                                System.out.println(new Date().toString() + " " + "DFRrequest " + pdfname + " to " + authuser.GetMail());
                                 outputStream.writeObject((BaseMessage) new ping(pdfname));
                                 continue;
                             }
@@ -289,28 +254,31 @@ public class ServeOneJabber extends Thread
 
                             System.out.println(new Date().toString() + " EmbeddedImageEmailUtil " + authuser.GetMail());
 
-//                            EmbeddedImageEmailUtil.send(
-//                                    email1,
-//                                    p.getTypeEvent().toString(),    //Тема сообщения
-//                                    pdfname,
-//                                    pdfdir + "/");
-
-                            EmbeddedImageEmailUtil.send(
-                                    email1,
+                            for (String mail : maillist) 
+                            {
+                                EmbeddedImageEmailUtil.send(
+                                    mail,
                                     pdfname, //Тема сообщения
                                     pdfname,
                                     pdfdir + "/");
-
-
-                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email1);
-
-                            EmbeddedImageEmailUtil.send(
-                                    email2,
-                                    pdfname,
-                                    pdfname,
-                                    pdfdir + "/");
-
-                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email2);
+                                System.out.println(new Date().toString() + " " + pdfname + " send to " + mail);
+                            }
+//                            EmbeddedImageEmailUtil.send(
+//                                    email1,
+//                                    pdfname, //Тема сообщения
+//                                    pdfname,
+//                                    pdfdir + "/");
+//
+//
+//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email1);
+//
+//                            EmbeddedImageEmailUtil.send(
+//                                    email2,
+//                                    pdfname,
+//                                    pdfname,
+//                                    pdfdir + "/");
+//
+//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email2);
 
                             bm.AddMessage(fullname);
                             pdfname = "recordok";
@@ -420,21 +388,32 @@ public class ServeOneJabber extends Thread
                                     GetDC(fullname),
                                     pdfdir + "/",
                                     pdfname);
-                            EmbeddedImageEmailUtil.send(
-                                    email1,
+                            for (String mail : maillist) 
+                            {
+                                EmbeddedImageEmailUtil.send(
+                                    mail,
                                     pdfname,
                                     pdfname,
                                     pdfdir + "/");
 
-                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email1);
+                            System.out.println(new Date().toString() + " " + pdfname + " send to " + mail);
 
-                            EmbeddedImageEmailUtil.send(
-                                    email2,
-                                    pdfname,
-                                    pdfname,
-                                    pdfdir + "/");
-
-                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email2);
+                            }
+//                            EmbeddedImageEmailUtil.send(
+//                                    email1,
+//                                    pdfname,
+//                                    pdfname,
+//                                    pdfdir + "/");
+//
+//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email1);
+//
+//                            EmbeddedImageEmailUtil.send(
+//                                    email2,
+//                                    pdfname,
+//                                    pdfname,
+//                                    pdfdir + "/");
+//
+//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email2);
 
                             bm.AddMessage(fullname);
                             pdfname = "recordok";
@@ -532,7 +511,7 @@ public class ServeOneJabber extends Thread
                                     + "\t"
                                     + s_m;//итого на руки
 
-                            System.out.println(new Date().toString() + " " + "DFRrequest" + pdfname);
+                            System.out.println(new Date().toString() + " " + "DFRrequest " + pdfname);
                             outputStream.writeObject((BaseMessage) new ping(pdfname));
 
                             System.out.println(new Date().toString() + " recordok will be send to " + authuser.GetMail());
@@ -540,23 +519,15 @@ public class ServeOneJabber extends Thread
                         }
                         catch (DocumentException ex)
                         {
-                            pdfname = "DocumentException";
+                            pdfname = "DocumentException ";
                             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        catch (AddressException ex)
-                        {
-                            pdfname = "AddressException";
-                            Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        catch (MessagingException ex)
-                        {
-                            pdfname = "MessagingException";
+                        } catch (MessagingException ex) {
                             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
                     if (p.getTypeEvent() == DataForRecord.TypeEvent.drug || p.getTypeEvent() == DataForRecord.TypeEvent.steal)
                     {
-                        System.out.println(new Date().toString() + " Is DFR.drug or steal" + authuser.GetMail());
+                        System.out.println(new Date().toString() + " Is DFR.drug or steal " + authuser.GetMail());
                         try
                         {
                             bm.AddMessage(fullname);
@@ -566,10 +537,10 @@ public class ServeOneJabber extends Thread
                         catch (Exception e)
                         {
                             pdfname = "ExceptionRecord";
-                            System.out.println(new Date().toString() + " pdfname = ExceptionRecordok" + authuser.GetMail());
+                            System.out.println(new Date().toString() + " pdfname = ExceptionRecordok " + authuser.GetMail());
                         }
                     }
-                    System.out.println(new Date().toString() + " " + "DFRrequest" + pdfname);
+                    System.out.println(new Date().toString() + " " + "DFRrequest " + pdfname);
                     outputStream.writeObject((BaseMessage) new ping(pdfname));
                     System.out.println(new Date().toString() + " pdfname will be sending to " + authuser.GetMail());
                     continue;
@@ -718,7 +689,7 @@ public class ServeOneJabber extends Thread
                         login log = (login) bm;
                         if (log.Authentication(accounts))
                         {
-                            System.out.println(new Date().toString() + " goto AuthMessaging");
+                            //System.out.println(new Date().toString() + " Auth Successful");
 
                             AuthMessaging(log.GetUser(), outputStream, inputStream);
                             return;
@@ -747,6 +718,7 @@ public class ServeOneJabber extends Thread
                         }
                         else
                         {
+                            System.out.println(new Date().toString() + " Еries to use the old version of the library");
                             BaseMessage request = (BaseMessage) new ping("UsedOldVersion");
                             outputStream.writeObject(request);
                         }
@@ -759,11 +731,9 @@ public class ServeOneJabber extends Thread
                         user us = (user) bm;
                         //Если мыла нет в списке аккаунтов
 
-                        //boolean b = us.IsUsed("../accounts/account");
                         boolean b = us.IsUsed(accounts);
                         if (!b)
                         {
-                            //us.AddMessage("../accounts/toreg");
                             us.AddMessage(toreg);
 
                             System.out.println(new Date().toString() + " Registration successful");
@@ -771,7 +741,7 @@ public class ServeOneJabber extends Thread
                             BaseMessage request = (BaseMessage) new ping("registrationok");
                             try
                             {
-                                EmbeddedImageEmailUtil.sendTextmessage(us.GetMail(), "Регистрация", "Привет от ICENGO! \nВаша заявка успешно добавлена и будет обработана в течении нескольких минут. \nСпасибо.");
+                                EmbeddedImageEmailUtil.sendTextmessage(us.GetMail(), "Регистрация", "Привет от ICENGO! \nВаша заявка успешно добавлена и будет обработана в течении нескольких минут. \nСпасибо."); //Запилить текст сообщения в файл
 
                                 System.out.println(new Date().toString() + " Send Registration Mail");
 
@@ -1414,5 +1384,28 @@ public class ServeOneJabber extends Thread
 
         }
         return null;
+    }
+
+    private List<String> GetMailList(String maillist) 
+    {
+        List<String> mlist = null;
+        try 
+        {
+            BufferedReader br = new BufferedReader(new FileReader(maillist));
+            String str;
+            mlist =  new ArrayList<String>();
+            while((str = br.readLine()) != null)
+            {
+                mlist.add(str);
+            }
+        } 
+        catch (FileNotFoundException ex) 
+        {
+            Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) 
+        {
+            Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return mlist;
     }
 }
