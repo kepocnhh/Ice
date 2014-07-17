@@ -145,7 +145,17 @@ public class ServeOneJabber extends Thread
         
         if (((ping) StatusSession).GetPing().equals("ErrorStatusSession"))
         {
-            System.out.println(new Date().toString() + " Лох-Несский баг " + authuser.GetMail());
+            System.out.println(new Date().toString() + " фиксим Лох-Несский баг " + authuser.GetMail());//костыль
+            try 
+            {
+                outputStream.writeObject(StatusSession);
+                System.out.println(new Date().toString() + " StatusSession will be send to " + authuser.GetMail());
+            } 
+            catch (IOException ex) 
+            {
+                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return;
         }
         if (((ping) StatusSession).GetPing().equals("NewSession"))
         {
