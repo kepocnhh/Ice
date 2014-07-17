@@ -101,14 +101,14 @@ public class ServeOneJabber extends Thread
     static String version;
     static List<String> maillist;
 
-    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String debug, String version, String maillist) throws IOException
+    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts,  String version, String maillist) throws IOException
     {
         socket = s;
         this.toreg = toreg;
         this.accounts = accounts;
         this.logdir = logdir;
         this.fonts = fonts;
-        this.debug = debug;
+        //this.debug = debug;
         this.version = version;
         this.maillist = GetMailList(maillist);
 
@@ -149,7 +149,7 @@ public class ServeOneJabber extends Thread
             try 
             {
                 outputStream.writeObject(StatusSession);
-                System.out.println(new Date().toString() + " StatusSession will be send to " + authuser.GetMail());
+                System.out.println(new Date().toString() + ((ping)StatusSession).GetPing() + " StatusSession will be send to " + authuser.GetMail());
             } 
             catch (IOException ex) 
             {
@@ -185,8 +185,8 @@ public class ServeOneJabber extends Thread
         {
             outputStream.writeObject(StatusSession);
 
-            System.out.println(new Date().toString() + " StatusSession will be send to " + authuser.GetMail());
-
+            //System.out.println(new Date().toString() + " StatusSession will be send to " + authuser.GetMail());
+            System.out.println(new Date().toString() + ((ping)StatusSession).GetPing() + " StatusSession will be send to " + authuser.GetMail());
 
             BaseMessage bm;
             BaseMessage request;
@@ -292,7 +292,7 @@ public class ServeOneJabber extends Thread
 
                             bm.AddMessage(fullname);
                             pdfname = "recordok";
-                            System.out.println(new Date().toString() + " " + "DFRrequest" + pdfname);
+                            System.out.println(new Date().toString() + " " + "DFRrequest " + pdfname);
                             outputStream.writeObject((BaseMessage) new ping(pdfname));
 
                             System.out.println(new Date().toString() + " Recordok will be send to " + authuser.GetMail());
@@ -1412,7 +1412,8 @@ public class ServeOneJabber extends Thread
         catch (FileNotFoundException ex) 
         {
             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) 
+        } 
+        catch (IOException ex) 
         {
             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -4229,3 +4229,303 @@ Sun Jun 29 03:34:09 MSK 2014 Messaging()
 Sun Jun 29 03:34:10 MSK 2014 ping
 sayhello device ON
 Sun Jun 29 03:34:11 MSK 2014 LastMessage
+Server Started
+Goto ServeOneJabber
+Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 7
+	at iceserver.IceServer.main(IceServer.java:60)
+Server Started
+Server Started
+Goto ServeOneJabber
+июл 17, 2014 8:15:10 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 20:15:10 MSK 2014 Messaging()
+Thu Jul 17 20:15:10 MSK 2014 login
+Thu Jul 17 20:15:10 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 20:15:10 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 20:15:10 MSK 2014 CreateFileName
+Thu Jul 17 20:15:10 MSK 2014 StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 20:15:10 MSK 2014 Бабай!
+Goto ServeOneJabber
+июл 17, 2014 8:15:16 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 20:15:16 MSK 2014 Messaging()
+Thu Jul 17 20:15:16 MSK 2014 login
+Thu Jul 17 20:15:16 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 20:15:16 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 20:15:16 MSK 2014 CreateFileName
+Thu Jul 17 20:15:16 MSK 2014 StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 20:15:16 MSK 2014 ping open a.haruk@gmail.com
+Thu Jul 17 20:15:16 MSK 2014 Бабай!
+Goto ServeOneJabber
+июл 17, 2014 8:17:44 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 20:17:44 MSK 2014 Messaging()
+Thu Jul 17 20:17:46 MSK 2014 login
+Thu Jul 17 20:17:46 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 20:17:46 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 20:17:46 MSK 2014 CreateFileName
+Thu Jul 17 20:17:46 MSK 2014 StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 20:17:46 MSK 2014 DFR a.haruk@gmail.com
+Thu Jul 17 20:17:46 MSK 2014 Is DFR.open a.haruk@gmail.com
+Thu Jul 17 20:17:46 MSK 2014 Create pdf a.haruk@gmail.com
+Thu Jul 17 20:17:46 MSK 2014 Find ping open
+Thu Jul 17 20:17:46 MSK 2014 open
+Thu Jul 17 20:17:47 MSK 2014 EmbeddedImageEmailUtil a.haruk@gmail.com
+Exception in thread "Thread-3" java.lang.NullPointerException
+	at iceserver.ServeOneJabber.AuthMessaging(ServeOneJabber.java:267)
+	at iceserver.ServeOneJabber.Messaging(ServeOneJabber.java:704)
+	at iceserver.ServeOneJabber.run(ServeOneJabber.java:855)
+Goto ServeOneJabber
+июл 17, 2014 8:18:00 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 20:18:00 MSK 2014 Messaging()
+Thu Jul 17 20:18:00 MSK 2014 login
+Thu Jul 17 20:18:00 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 20:18:00 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 20:18:00 MSK 2014 CreateFileName
+Thu Jul 17 20:18:00 MSK 2014 StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 20:18:00 MSK 2014 DFR a.haruk@gmail.com
+Thu Jul 17 20:18:00 MSK 2014 Is DFR.open a.haruk@gmail.com
+Thu Jul 17 20:18:00 MSK 2014 Create pdf a.haruk@gmail.com
+Thu Jul 17 20:18:00 MSK 2014 Find ping open
+Thu Jul 17 20:18:00 MSK 2014 open
+Thu Jul 17 20:18:00 MSK 2014 EmbeddedImageEmailUtil a.haruk@gmail.com
+Exception in thread "Thread-4" java.lang.NullPointerException
+	at iceserver.ServeOneJabber.AuthMessaging(ServeOneJabber.java:267)
+	at iceserver.ServeOneJabber.Messaging(ServeOneJabber.java:704)
+	at iceserver.ServeOneJabber.run(ServeOneJabber.java:855)
+Goto ServeOneJabber
+июл 17, 2014 8:19:21 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 20:19:21 MSK 2014 Messaging()
+Thu Jul 17 20:19:21 MSK 2014 login
+Thu Jul 17 20:19:21 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 20:19:21 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 20:19:21 MSK 2014 CreateFileName
+Thu Jul 17 20:19:21 MSK 2014 StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 20:19:21 MSK 2014 DFR a.haruk@gmail.com
+Thu Jul 17 20:19:21 MSK 2014 Is DFR.open a.haruk@gmail.com
+Thu Jul 17 20:19:21 MSK 2014 Create pdf a.haruk@gmail.com
+Thu Jul 17 20:19:21 MSK 2014 Find ping open
+Thu Jul 17 20:19:21 MSK 2014 open
+Thu Jul 17 20:19:21 MSK 2014 EmbeddedImageEmailUtil a.haruk@gmail.com
+Exception in thread "Thread-5" java.lang.NullPointerException
+	at iceserver.ServeOneJabber.AuthMessaging(ServeOneJabber.java:267)
+	at iceserver.ServeOneJabber.Messaging(ServeOneJabber.java:704)
+	at iceserver.ServeOneJabber.run(ServeOneJabber.java:855)
+Goto ServeOneJabber
+июл 17, 2014 8:20:33 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 20:20:33 MSK 2014 Messaging()
+Thu Jul 17 20:20:33 MSK 2014 login
+Thu Jul 17 20:20:33 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 20:20:33 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 20:20:33 MSK 2014 CreateFileName
+Thu Jul 17 20:20:33 MSK 2014 StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 20:20:33 MSK 2014 DFR a.haruk@gmail.com
+Thu Jul 17 20:20:33 MSK 2014 Is DFR.open a.haruk@gmail.com
+Thu Jul 17 20:20:33 MSK 2014 Create pdf a.haruk@gmail.com
+Thu Jul 17 20:20:33 MSK 2014 Find ping open
+Thu Jul 17 20:20:33 MSK 2014 open
+Thu Jul 17 20:20:33 MSK 2014 EmbeddedImageEmailUtil a.haruk@gmail.com
+Exception in thread "Thread-6" java.lang.NullPointerException
+	at iceserver.ServeOneJabber.AuthMessaging(ServeOneJabber.java:267)
+	at iceserver.ServeOneJabber.Messaging(ServeOneJabber.java:704)
+	at iceserver.ServeOneJabber.run(ServeOneJabber.java:855)
+Goto ServeOneJabber
+июл 17, 2014 8:21:14 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 20:21:14 MSK 2014 Messaging()
+Thu Jul 17 20:21:14 MSK 2014 login
+Thu Jul 17 20:21:18 MSK 2014 Auth Successful a.haruk@gmail.com
+Server Started
+Goto ServeOneJabber
+июл 17, 2014 9:14:59 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 21:14:59 MSK 2014 Messaging()
+Thu Jul 17 21:14:59 MSK 2014 login
+Thu Jul 17 21:15:03 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 21:15:03 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 21:15:03 MSK 2014 CreateFileName
+Thu Jul 17 21:15:03 MSK 2014NewSession StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 21:15:03 MSK 2014 Бабай!
+Goto ServeOneJabber
+июл 17, 2014 9:15:07 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 21:15:07 MSK 2014 Messaging()
+Thu Jul 17 21:15:07 MSK 2014 login
+Thu Jul 17 21:15:12 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 21:15:12 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 21:15:12 MSK 2014 CreateFileName
+Thu Jul 17 21:15:12 MSK 2014NewSession StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 21:15:12 MSK 2014 ping open a.haruk@gmail.com
+Thu Jul 17 21:15:12 MSK 2014 Бабай!
+Goto ServeOneJabber
+июл 17, 2014 9:17:48 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Thu Jul 17 21:17:48 MSK 2014 Messaging()
+Thu Jul 17 21:17:48 MSK 2014 login
+Thu Jul 17 21:17:51 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 21:20:10 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 21:20:19 MSK 2014 CreateFileName
+Thu Jul 17 21:20:35 MSK 2014NewSession StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 21:20:49 MSK 2014 DFR a.haruk@gmail.com
+Thu Jul 17 21:21:23 MSK 2014 Is DFR.open a.haruk@gmail.com
+Thu Jul 17 21:21:27 MSK 2014 Create pdf a.haruk@gmail.com
+Thu Jul 17 21:21:41 MSK 2014 Find ping open
+Thu Jul 17 21:21:52 MSK 2014 open
+Thu Jul 17 21:22:09 MSK 2014 EmbeddedImageEmailUtil a.haruk@gmail.com
+Server Started
+Goto ServeOneJabber
+июл 17, 2014 9:25:47 PM iceserver.ServeOneJabber GetMailList
+SEVERE: null
+java.io.FileNotFoundException: debugmaillist (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at java.io.FileReader.<init>(FileReader.java:58)
+	at iceserver.ServeOneJabber.GetMailList(ServeOneJabber.java:1404)
+	at iceserver.ServeOneJabber.<init>(ServeOneJabber.java:113)
+	at iceserver.IceServer.main(IceServer.java:60)
+
+Server Started
+Goto ServeOneJabber
+Thu Jul 17 21:26:54 MSK 2014 Messaging()
+Thu Jul 17 21:26:54 MSK 2014 login
+Thu Jul 17 21:26:54 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 21:26:54 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 21:26:54 MSK 2014 CreateFileName
+Thu Jul 17 21:26:54 MSK 2014NewSession StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 21:26:54 MSK 2014 DFR a.haruk@gmail.com
+Thu Jul 17 21:26:54 MSK 2014 Is DFR.open a.haruk@gmail.com
+Thu Jul 17 21:26:54 MSK 2014 Create pdf a.haruk@gmail.com
+июл 17, 2014 9:26:54 PM iceserver.ServeOneJabber GetLogList
+SEVERE: null
+java.io.FileNotFoundException: ../log/2014/7/17/Тдва 17.7.2014 (Нет такого файла или каталога)
+	at java.io.FileInputStream.open(Native Method)
+	at java.io.FileInputStream.<init>(FileInputStream.java:146)
+	at java.io.FileInputStream.<init>(FileInputStream.java:101)
+	at iceserver.ServeOneJabber.GetLogList(ServeOneJabber.java:1371)
+	at iceserver.ServeOneJabber.AuthMessaging(ServeOneJabber.java:239)
+	at iceserver.ServeOneJabber.Messaging(ServeOneJabber.java:704)
+	at iceserver.ServeOneJabber.run(ServeOneJabber.java:855)
+
+Thu Jul 17 21:26:54 MSK 2014 DFRrequest LogListIsEmpty to a.haruk@gmail.com
+Thu Jul 17 21:26:54 MSK 2014 Бабай!
+Server Started
+Goto ServeOneJabber
+Thu Jul 17 21:27:37 MSK 2014 Messaging()
+Thu Jul 17 21:27:38 MSK 2014 login
+Thu Jul 17 21:27:38 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 21:27:38 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 21:27:38 MSK 2014 CreateFileName
+Thu Jul 17 21:27:38 MSK 2014NewSession StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 21:27:39 MSK 2014 ping open a.haruk@gmail.com
+Thu Jul 17 21:27:39 MSK 2014 Бабай!
+Goto ServeOneJabber
+Thu Jul 17 21:29:55 MSK 2014 Messaging()
+Thu Jul 17 21:29:56 MSK 2014 login
+Thu Jul 17 21:29:56 MSK 2014 Auth Successful a.haruk@gmail.com
+Thu Jul 17 21:29:56 MSK 2014 NewSession a.haruk@gmail.com
+Thu Jul 17 21:29:56 MSK 2014 CreateFileName
+Thu Jul 17 21:29:56 MSK 2014NewSession StatusSession will be send to a.haruk@gmail.com
+Thu Jul 17 21:29:57 MSK 2014 DFR a.haruk@gmail.com
+Thu Jul 17 21:29:57 MSK 2014 Is DFR.open a.haruk@gmail.com
+Thu Jul 17 21:29:57 MSK 2014 Create pdf a.haruk@gmail.com
+Thu Jul 17 21:29:57 MSK 2014 Find ping open
+Thu Jul 17 21:29:57 MSK 2014 open
+Thu Jul 17 21:29:58 MSK 2014 EmbeddedImageEmailUtil a.haruk@gmail.com
+Thu Jul 17 21:30:17 MSK 2014 даблеать! Тдва 17.7.2014 Открытие send to a.haruk@gmail.com
+Thu Jul 17 21:30:20 MSK 2014 даблеать! Тдва 17.7.2014 Открытие send to iceandgoit@gmail.com
+Thu Jul 17 21:30:24 MSK 2014 DFRrequestrecordok
+Thu Jul 17 21:30:53 MSK 2014 Recordok will be send to a.haruk@gmail.com
