@@ -94,20 +94,22 @@ public class ServeOneJabber extends Thread
     String accounts;
     String logdir;
     static String fonts;
-    String debug;
+    
     static String version;
     static List<String> maillist;
+    static List<String> salarylist;
 
-    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts,  String version, String maillist) throws IOException
+    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts,  String version, String maillist, String salarylist) throws IOException
     {
         socket = s;
         this.toreg = toreg;
         this.accounts = accounts;
         this.logdir = logdir;
         this.fonts = fonts;
-        //this.debug = debug;
+        
         this.version = version;
         this.maillist = GetMailList(maillist);
+        this.salarylist = GetSalaryList(salarylist);
 
         start(); // вызываем run()
     }
@@ -368,7 +370,8 @@ public class ServeOneJabber extends Thread
                             long diff1 = calendarclose1.getTimeInMillis() - calendaropen1.getTimeInMillis();
                             long seconds1 = diff1 / 1000;
                             long minutes1 = seconds1 / 60;
-                            double salary = minutes1 * 110 / 60;
+                            //double salary = minutes1 * 110 / 60;
+                            double salary = minutes1 * GetSalary(salarylist, authuser.GetMail()) / 60;
                             double massk[] = new double[4];//кепки
                             for (int i = 0; i < dfropen.matrix[4].length; i++)
                             {
@@ -1271,5 +1274,43 @@ public class ServeOneJabber extends Thread
             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
         }
         return mlist;
+    }
+
+    private List<String> GetSalaryList(String salarylist) 
+    {
+        List<String> slist = null;
+        try 
+        {
+            BufferedReader br = new BufferedReader(new FileReader(salarylist));
+            String str;
+            slist =  new ArrayList<String>();
+            while((str = br.readLine()) != null)
+            {
+                slist.add(str);
+            }
+        } 
+        catch (FileNotFoundException ex) 
+        {
+            Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return slist;
+    }
+
+    private double GetSalary(List<String> salarylist, String mail) 
+    {
+        double s = Double.parseDouble((salarylist.get(0)).split("\t")[0]);
+        for (String string : salarylist) 
+        {
+            String[] insplits = string.split("\t");
+            if(insplits[0].equals(mail))
+            {
+                s =  Integer.parseInt(insplits[1]);
+            }
+        }
+        return s;
     }
 }
