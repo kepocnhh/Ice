@@ -140,20 +140,20 @@ public class ServeOneJabber extends Thread
 
         BaseMessage StatusSession = GetStatusSession(authuser, dir); 
         
-        if (((ping) StatusSession).GetPing().equals("ErrorStatusSession"))
-        {
-            System.out.println(new Date().toString() + " фиксим Лох-Несский баг " + authuser.GetMail());//костыль
-            try 
-            {
-                outputStream.writeObject(StatusSession);
-                System.out.println(new Date().toString() + ((ping)StatusSession).GetPing() + " StatusSession will be send to " + authuser.GetMail());
-            } 
-            catch (IOException ex) 
-            {
-                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            return;
-        }
+//        if (((ping) StatusSession).GetPing().equals("ErrorStatusSession"))
+//        {
+//            System.out.println(new Date().toString() + " фиксим Лох-Несский баг " + authuser.GetMail());//костыль
+//            try 
+//            {
+//                outputStream.writeObject(StatusSession);
+//                System.out.println(new Date().toString() + ((ping)StatusSession).GetPing() + " StatusSession will be send to " + authuser.GetMail());
+//            } 
+//            catch (IOException ex) 
+//            {
+//                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//            return;
+//        }
         if (((ping) StatusSession).GetPing().equals("NewSession"))
         {
             System.out.println(new Date().toString() + " NewSession " + authuser.GetMail());    
@@ -189,6 +189,13 @@ public class ServeOneJabber extends Thread
             BaseMessage request;
             while ((bm = (BaseMessage) inputStream.readObject()) != null)
             {
+                List<BaseMessage> logsession = BaseMessage.GetList(filename);
+                if(bm.IsContaint(logsession))
+                {
+                    //уже есть
+                    return;
+                }
+                
                 //Сюда мы с Тошиком напишем реакцию сервера на каждый из классов, 
                 //которые может принять сервер. И будет нам счастье!
                 Class c = bm.getClass();
@@ -208,20 +215,7 @@ public class ServeOneJabber extends Thread
                     DataForRecord p = (DataForRecord) bm;
                     String pdfname = "";
 
-                    //String email1;
-                    //String email2;
-//                    if (debug.equals("debug"))
-//                    {
-//                        for (String mail : maillist) 
-//                        {
-//                            
-//                        }
-//                    }
-//                    else
-//                    {
-////                        email1 = "medvedev@rosintec.com";
-////                        email2 = "kositsyn@rosintec.com";
-//                    }
+
                     if (p.getTypeEvent() == DataForRecord.TypeEvent.open)
                     {
                         System.out.println(new Date().toString() + " Is DFR.open " + authuser.GetMail());
@@ -270,22 +264,6 @@ public class ServeOneJabber extends Thread
                                     pdfdir + "/");
                                 System.out.println(new Date().toString() + " " + pdfname + " send to " + mail);
                             }
-//                            EmbeddedImageEmailUtil.send(
-//                                    email1,
-//                                    pdfname, //Тема сообщения
-//                                    pdfname,
-//                                    pdfdir + "/");
-//
-//
-//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email1);
-//
-//                            EmbeddedImageEmailUtil.send(
-//                                    email2,
-//                                    pdfname,
-//                                    pdfname,
-//                                    pdfdir + "/");
-//
-//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email2);
 
                             bm.AddMessage(fullname);
                             pdfname = "recordok";
@@ -313,33 +291,6 @@ public class ServeOneJabber extends Thread
                             pdfname = "MessagingException";
                             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
                         }
-
-
-//                        System.out.println(new Date().toString() + " Is DFR.open " + authuser.GetMail()); //это для лога
-//
-//                        pdfname = p.nameshop + " " + filename + " " + Translate(p.getTypeEvent()); // Создание имени пдф
-//                        System.out.println(new Date().toString() + " Create pdf " + authuser.GetMail());
-//                        
-//                        List<BaseMessage> loglist = GetLogList(fullname);   //Попытка прочитать лист из файла. Если файла или листа нет - вернёт null
-//                        
-//                        if(loglist == null) //Если смена ещё не открывалась
-//                        {
-//                            loglist = new ArrayList<BaseMessage>();
-//                            loglist.add(bm);
-//                            
-//                            try {
-//                                CreatePDF._CreatePDF(new Strings(), authuser,
-//                                        //GetDFR(DataForRecord.TypeEvent.open,fullname),
-//                                        p, bm.GetDate(),
-//                                        pdfdir + "/", pdfname);
-//                            } catch (DocumentException ex) {
-//                                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-//                            }
-//                        }
-//                        else    //Если смена уже открыта или всё такая кровать
-//                        {
-//                            
-//                        }
 
                     }
                     if (p.getTypeEvent() == DataForRecord.TypeEvent.close)
@@ -406,21 +357,6 @@ public class ServeOneJabber extends Thread
                             System.out.println(new Date().toString() + " " + pdfname + " send to " + mail);
 
                             }
-//                            EmbeddedImageEmailUtil.send(
-//                                    email1,
-//                                    pdfname,
-//                                    pdfname,
-//                                    pdfdir + "/");
-//
-//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email1);
-//
-//                            EmbeddedImageEmailUtil.send(
-//                                    email2,
-//                                    pdfname,
-//                                    pdfname,
-//                                    pdfdir + "/");
-//
-//                            System.out.println(new Date().toString() + " " + pdfname + " send to " + email2);
 
                             bm.AddMessage(fullname);
                             pdfname = "recordok";
@@ -565,86 +501,6 @@ public class ServeOneJabber extends Thread
 
                     continue;
                 }
-                /*
-                if (c == Photo.class)
-                {
-                System.out.println(new Date().toString() + " PHOTO O_o");
-                
-                request = (BaseMessage) new ping("photook");
-                
-                //bm.AddMessage(filename);
-                Photo p = (Photo) bm;
-                try
-                {
-                //Сохранение фото
-                
-                //FileOutputStream fos = new FileOutputStream(new File("PhotoForIce.jpg"));
-                String photoname = filename + "_"
-                + p.getTypeEvent().toString();
-                FileOutputStream fos = new FileOutputStream(new File(photodir + "/" + photoname + ".jpg"));
-                fos.write(p.log);
-                fos.flush();
-                fos.close();
-                
-                //Создание pdf на открытие и закрытие
-                //MAGIKA!!!!
-                if (p.getTypeEvent() == DataForRecord.TypeEvent.open || p.getTypeEvent() == DataForRecord.TypeEvent.close)
-                {
-                try
-                {
-                String pdfname = filename + "_"
-                + p.getTypeEvent().toString();
-                CreatePDF._CreatePDF(new Strings(), authuser,
-                GetDFR(p.getTypeEvent(), fullname),
-                pdfdir + "/", pdfname);
-                try
-                {
-                //отправляем мыло с ПДФ и картинкой
-                EmbeddedImageEmailUtil.sendimagepluspdf("iceandgoit@gmail.com",
-                p.getTypeEvent().toString(),
-                "Сообщение", pdfname, pdfdir,
-                photodir + "/", photoname);
-                }
-                catch (AddressException ex)
-                {
-                request = (BaseMessage) new ping("AddressException");
-                outputStream.writeObject(request);
-                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-                continue;
-                }
-                catch (MessagingException ex)
-                {
-                request = (BaseMessage) new ping("MessagingException");
-                outputStream.writeObject(request);
-                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-                continue;
-                }
-                
-                }
-                catch (DocumentException ex)
-                {
-                request = (BaseMessage) new ping("DocumentException");
-                outputStream.writeObject(request);
-                Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-                continue;
-                }
-                
-                
-                }
-                outputStream.writeObject(request);
-                //System.out.println(new Date().toString() + " Photo - photook");
-                }
-                catch (IOException e)
-                {
-                outputStream.writeObject((BaseMessage) new ping("sobed"));
-                System.out.println(new Date().toString() + " Photo - sobed");
-                }
-                //outputStream.writeObject(request);
-                continue;
-                }
-                 */
-
-
 
                 if (c == LastMessage.class)
                 {
