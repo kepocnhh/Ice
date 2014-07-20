@@ -23,6 +23,7 @@ public class BaseMessage
     private Date date;
     private double placex;
     private double placey;
+    protected int UI;
 
     public void SetDate(Date d)
     {
@@ -52,8 +53,8 @@ public class BaseMessage
 
     public BaseMessage()
     {
-        //this. = 2;
         this.date = new Date();
+        this.UI = this.hashCode();
     }
 
     public String GetVersion()
@@ -125,48 +126,56 @@ public class BaseMessage
         }
     }
 
-    public void AddMessageBUG(String path)
+    public static List<BaseMessage> GetList(String path)
     {
         List<BaseMessage> loglist = null;
         try
         {
             FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream read = null;
-            try
+            ObjectInputStream read = new ObjectInputStream(fis);
+            if ((loglist = (List) read.readObject()) != null)
             {
-                read = new ObjectInputStream(fis);
-                if ((loglist = (List) read.readObject()) != null)
-                {
-                    loglist.add(this);
-                    read.close();
-                }
-            }
-            catch (IOException ex)
-            {
-                Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
-
-                loglist = new ArrayList();
-                loglist.add(this);
-            }
-            try
-            {
-                ObjectOutputStream s = new ObjectOutputStream(new FileOutputStream(path));
-                s.writeObject(loglist);
-                s.close();
-            }
-            catch (IOException ex)
-            {
-                Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
+                read.close();
+                fis.close();
             }
         }
         catch (FileNotFoundException ex)
         {
             Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
-            System.err.println("File not found\n");
         }
+       
         catch (ClassNotFoundException ex)
         {
             Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        catch (IOException ex) 
+        {
+            Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return loglist;
+    }
+    
+    public boolean IsContaint(List<BaseMessage> list)
+    {
+        for (BaseMessage baseMessage : list) 
+        {
+            if(this.equals(baseMessage))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean equals(BaseMessage bm)
+    {
+        if(this.UI == bm.UI)
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
         }
     }
 }

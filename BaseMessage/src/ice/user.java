@@ -24,6 +24,7 @@ public class user
     String pass;
     String birth;
     Boolean superv;
+    double salary = 110;
 
     public user(String line)
     {
@@ -38,6 +39,7 @@ public class user
             this.pass = insplits[5];
             this.birth = insplits[6];
             this.superv = Boolean.parseBoolean(insplits[7]);
+            
         }
     }
 
