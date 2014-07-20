@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="BaseMessage">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/iceclient/BaseMessage.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

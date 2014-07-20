@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="meow.dogs.work"
+    android:versionCode="24"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="14"
+        android:targetSdkVersion="16"/>
+		<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+        <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+		<uses-permission android:name="android.permission.INTERNET"/>
+    	<uses-permission android:name="android.permission.CAMERA"/>
+    	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    	<uses-feature android:name="android.hardware.camera"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/icengo"
+        android:label="@string/app_name"
+        android:debuggable="false"
+        android:theme="@style/Theme.AppCompat" >
+        <activity
+            android:name="meow.dogs.work.MainActivity"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="meow.dogs.work.Arbeiten"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/arbeiten" >
+		</activity>
+        <activity
+            android:name="meow.dogs.work.OpenArb"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/openarb" >
+        </activity>
+        <activity
+            android:name="meow.dogs.work.Registration"
+            android:configChanges="orientation|keyboardHidden"
+            android:label="@string/registration" >
+        </activity>
+    </application>
+
+</manifest>

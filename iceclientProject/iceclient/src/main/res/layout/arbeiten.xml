@@ -1,0 +1,86 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@color/cwhite"
+    android:gravity="top"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".HelloActivity" >
+
+    <Button
+        android:id="@+id/barbexit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/barbclose"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/barbclose"
+        android:onClick="butexit"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button"
+        android:text="Выход" />
+
+    <Button
+        android:id="@+id/barbopen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:onClick="butopen"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button"
+        android:text="Открыть смену" />
+
+    <Button
+        android:id="@+id/barbcass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/barbopen"
+        android:onClick="butcass"
+        android:text="Взять деньги из кассы"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button"/>
+
+    <Button
+        android:id="@+id/barbdrug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/barbcass"
+        android:background="@drawable/back_button"
+        android:onClick="butdrug"
+        android:text="Приход"
+        android:textColor="@color/text_button" />
+
+
+    <Button
+        android:id="@+id/barbsteal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/barbdrug"
+        android:onClick="butsteal"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button" 
+        android:text="Уход"/>
+
+    <Button
+        android:id="@+id/barbclose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/barbsteal"
+        android:background="@drawable/back_button"
+        android:onClick="butclose"
+        android:text="Закрытие смены"
+        android:textColor="@color/text_button" />
+
+</RelativeLayout>

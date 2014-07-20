@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:id="@+id/llopen"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@color/cwhite"
+            android:orientation="vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_above="@+id/tvopen"
+            android:layout_alignParentTop="true">
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_toLeftOf="@+id/cancel"/>
+        </LinearLayout>
+    <TextView
+        android:id="@+id/tvopen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/llopen"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editText1"
+        android:text="Денег на кассе"
+        android:textColor="@color/cblue"
+        android:layout_above="@+id/etopen" />
+
+    <EditText
+        android:id="@+id/etopen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:textColor="@color/cwhite"
+        android:inputType="phone"
+        android:layout_above="@+id/tvshopopen"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
+    <TextView
+        android:id="@+id/tvshopopen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/etopen"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/editText1"
+        android:text="Название магазина"
+        android:textColor="@color/cblue"
+        android:layout_above="@+id/etshopopen" />
+
+    <EditText
+        android:id="@+id/etshopopen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:layout_alignLeft="@+id/tvshopopen"
+        android:textColor="@color/cwhite"
+        android:layout_above="@+id/ok"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentLeft="true" />
+    <Button
+        android:id="@+id/cancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:onClick="butcancel"
+        android:text="Отмена" />
+
+    <Button
+        android:id="@+id/ok"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_toLeftOf="@+id/cancel"
+        android:onClick="butok"
+        android:text="Применить" />
+
+</RelativeLayout>

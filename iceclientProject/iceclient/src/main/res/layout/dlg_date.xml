@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center" >
+
+    <DatePicker
+        android:id="@+id/cddP"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:calendarViewShown="false"
+        android:spinnersShown="true" />
+    
+    <Button
+        android:id="@+id/dial_but"
+        android:layout_width="234dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_button"
+        android:text="Сохранить"
+        android:textColor="@color/text_button" />
+</LinearLayout>

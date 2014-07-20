@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center" >
+
+    <Button
+        android:id="@+id/dlgcncl"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button"
+        android:text="Завершить" />
+        <ListView
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/listdlg"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:layout_toLeftOf="@+id/dialog_button"/>
+    <Button
+        android:id="@+id/dlgok"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button"
+        android:text="Записать" />
+    <EditText
+        android:id="@+id/dlget"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="Введите число"
+        android:inputType="phone"/>
+
+</LinearLayout>

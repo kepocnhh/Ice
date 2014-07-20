@@ -13,6 +13,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,36 +27,37 @@ public class Editacc
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException
+    public static void main(String[] args)
     {
-        // TODO code application logic here
-        //List reg = ReadUser("/home/alex/NetBeansProjects/IceServer/Testreg");
-        List reg = ReadUser(args[0]);
-        PrintList(reg);
-        System.out.println("Кого надо скопировать?");
-        int num = System.in.read() - '0';
-
-        if (num < reg.size() && num >= 0)
+        if(args.length!=2)
         {
-            //AddAcc((String) reg.get(num), "/home/alex/NetBeansProjects/accounts/account");
-            AddAcc((String) reg.get(num), args[1]);
+            System.out.println("\targ[0] - toreg\n\targ[1]account\n");
+            return;
         }
-        else
+        
+        List toreg = ReadUsers(args[0]);
+        
+        PrintList(toreg);
+        System.out.println("\nКого надо скопировать?\n");
+        
+        Scanner scan = new Scanner(System.in);
+        int num = Integer.parseInt(scan.next());
+        
+        if(num >= 0 && num < toreg.size())
         {
-            System.out.println("Open your eyes!");
+            AddAcc((String) toreg.get(num), args[1]);
+            PrintList(ReadUsers(args[1]));
+            
+            try
+            {
+                String s = (String) toreg.get(num);
+                EmbeddedImageEmailUtil.sendTextmessage(s.split("\t")[4], "Регистрация", "Поздравляю! Вы успешно зарегистрированы. \nУспехов в работе =)");
+            }
+            catch (Exception e)
+            {
+                System.err.println(e.toString());
+            }
         }
-        List acc = ReadUser(args[1]);
-        PrintList(acc);
-        try
-        {
-            String s = (String) reg.get(num);
-            EmbeddedImageEmailUtil.sendTextmessage(s.split("\t")[4], "Регистрация", "Поздравляю! Вы успешно зарегистрированы. \nУспехов в работе =)");
-        }
-        catch (Exception e)
-        {
-            System.err.println(e.toString());
-        }
-
     }
     
 
@@ -122,7 +124,7 @@ public class Editacc
         }
     }
 
-    static List ReadUser(String path)
+    static List ReadUsers(String path)
     {
         List<String> loglist = null;
 

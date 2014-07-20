@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ICENGO</string>
+    <string name="action_settings">IPnPORT</string>
+    <string name="about_settings">ABOUT</string>
+    <string name="arbeiten">Рабочее поле</string>
+    <string name="openarb">Открытие</string>
+    <string name="registration">Регистрация</string>
+    <color name="cblue">#3399CC</color>
+    <color name="cwhite">#FFFFFF</color>
+    <color name="cblack">#000000</color>
+    <color name="cred">#FF0000</color>
+
+</resources>

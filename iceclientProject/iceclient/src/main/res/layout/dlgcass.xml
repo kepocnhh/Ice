@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_gravity="center" >
+    <Button
+        android:id="@+id/bcasscnclc"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button"
+        android:text="Отмена" />
+    <TextView
+        android:id="@+id/tvcasssum"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Сумма"
+        android:textColor="@color/cblue"/>
+    <EditText
+        android:id="@+id/etcasssum"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textColor="@color/cwhite"
+        android:inputType="phone"/>
+    <TextView
+        android:id="@+id/tvcassfam"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:text="Фамилия"
+        android:textColor="@color/cblue"/>
+    <EditText
+        android:id="@+id/etcassfam"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:textColor="@color/cwhite"
+        android:inputType="textCapWords"/>
+    <Button
+        android:id="@+id/bcassok"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@drawable/back_button"
+        android:textColor="@color/text_button"
+        android:text="Отправить" />
+</LinearLayout>
