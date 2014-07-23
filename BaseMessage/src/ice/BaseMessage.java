@@ -160,7 +160,7 @@ public class BaseMessage
     {
         for (BaseMessage baseMessage : list)
         {
-            if (this.equals(baseMessage))
+            if (this.UI == baseMessage.UI)
             {
                 return true;
             }
