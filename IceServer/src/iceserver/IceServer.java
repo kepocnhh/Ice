@@ -26,17 +26,19 @@ public class IceServer
      * args[2] - accounts
      * args[3] - logdir
      * args[4] - fonts
-     * args[6] - version
-     * args[8] - mail list (mail.txt)
+     * args[5] - version
+     * args[6] - mail list (mail.txt)
+     * args[7] - Salary list
+     * args[8] - String config (config.txt)
      */
     public static void main(String[] args) throws IOException
     {
         // TODO code application logic here
         //ServerSocket s = new ServerSocket(PORT);
         //int PORT = Integer.parseInt(args[0]);
-        if(args.length!=8)
+        if(args.length!=9)
         {
-            System.out.println("\nargs[0] - PORT\nargs[1] - toreg\nargs[2] - accounts\nargs[3] - logdir\nargs[4] - fonts\nargs[5] - version\nargs[6] - mail list\nargs[7] - salary list");
+            System.out.println("\nargs[0] - PORT\nargs[1] - toreg\nargs[2] - accounts\nargs[3] - logdir\nargs[4] - fonts\nargs[5] - version\nargs[6] - mail list\nargs[7] - salary list\nargs[8] - config strings");
             return;
         }
         
@@ -57,7 +59,7 @@ public class IceServer
                 try
                 {
                     System.out.println("Goto ServeOneJabber");
-                    new ServeOneJabber(socket, args[1], args[2], args[3], args[4],  args[5], args[6], args[7]);
+                    new ServeOneJabber(socket, args[1], args[2], args[3], args[4],  args[5], args[6], args[7], args[8]);
                 }
                 catch (IOException e)
                 {

@@ -98,8 +98,9 @@ public class ServeOneJabber extends Thread
     static String version;
     static List<String> maillist;
     static List<String> salarylist;
+    static String StringsConfigFile;
 
-    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts,  String version, String maillist, String salarylist) throws IOException
+    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts,  String version, String maillist, String salarylist, String StringSConfigFile) throws IOException
     {
         socket = s;
         this.toreg = toreg;
@@ -110,6 +111,7 @@ public class ServeOneJabber extends Thread
         this.version = version;
         this.maillist = GetMailList(maillist);
         this.salarylist = GetSalaryList(salarylist);
+        this.StringsConfigFile = StringsConfigFile;
 
         start(); // вызываем run()
     }
@@ -250,7 +252,7 @@ public class ServeOneJabber extends Thread
                                 outputStream.writeObject((BaseMessage) new ping(pdfname));
                                 continue;
                             }
-                            CreatePDF._CreatePDF(new Strings(), authuser,
+                            CreatePDF._CreatePDF(new Strings(StringsConfigFile), authuser,
                                     //GetDFR(DataForRecord.TypeEvent.open,fullname),
                                     p, tmp.GetDate(),
                                     pdfdir + "/", pdfname);
@@ -334,7 +336,7 @@ public class ServeOneJabber extends Thread
                             }
 
                             CreatePDF._CreatePDF(
-                                    new Strings(),
+                                    new Strings(StringsConfigFile),
                                     authuser,
                                     dfropen,
                                     dfrdrug,
@@ -577,7 +579,7 @@ public class ServeOneJabber extends Thread
                         if(bm.GetVersion().equals(version))
                         {
                             ping p = (ping) bm;
-                            BaseMessage request = (BaseMessage) new Strings();
+                            BaseMessage request = (BaseMessage) new Strings(StringsConfigFile);
                             outputStream.writeObject(request);
                             System.out.println(p.GetPing() + " device ON");
                             continue;
@@ -984,7 +986,7 @@ public class ServeOneJabber extends Thread
     //Возвращает объект заданного типа события
     private static DataForRecord GetDFR(DataForRecord.TypeEvent TE, String file) throws UnsupportedEncodingException, IOException
     {
-        DataForRecord tempdfr = new DataForRecord(new Strings());
+        DataForRecord tempdfr = new DataForRecord(new Strings(StringsConfigFile));
         FileInputStream fis = null;
         ObjectInputStream read = null;
         try
