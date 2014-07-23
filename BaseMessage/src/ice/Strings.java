@@ -17,7 +17,7 @@
    public List<String> DataSubCass = new ArrayList();
    public List<String> PDFheader = new ArrayList();
    public List<String> SessionTypes = new ArrayList();
-   private String PathFile = "../config";
+   private String PathFile = "../config"; //default
    
    public Strings()
      throws UnsupportedEncodingException, IOException
