@@ -1,4 +1,3 @@
-
 package iceserver;
 
 //import com.itextpdf.text.DocumentException;
@@ -86,28 +85,25 @@ public class ServeOneJabber extends Thread
         return arraydc;
     }
     private Socket socket;
-//    args[0] - PORT
-//     * args[1] - toreg
-//     * args[2] - accounts
-//     * args[3] - logdir
+
     String toreg;
     String accounts;
     String logdir;
     static String fonts;
-    
+
     static String version;
     static List<String> maillist;
     static List<String> salarylist;
     static String StringsConfigFile;
 
-    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts,  String version, String maillist, String salarylist, String StringSConfigFile) throws IOException
+    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String version, String maillist, String salarylist, String StringsConfigFile) throws IOException
     {
         socket = s;
         this.toreg = toreg;
         this.accounts = accounts;
         this.logdir = logdir;
         this.fonts = fonts;
-        
+
         this.version = version;
         this.maillist = GetMailList(maillist);
         this.salarylist = GetSalaryList(salarylist);
@@ -126,8 +122,7 @@ public class ServeOneJabber extends Thread
         System.out.println(new Date().toString() + " Auth Successful " + authuser.GetMail());
 
         //System.out.println(new Date().toString() + " Создание папки для пользователя " + authuser.GetMail());
-
-        String dir = CreateLogDirName(authuser);
+        String dir = CreateLogDirName(authuser, logdir);
         File myPath = new File(dir);
         myPath.mkdirs();
 
@@ -141,9 +136,8 @@ public class ServeOneJabber extends Thread
 
         String filename;
 
+        BaseMessage StatusSession = GetStatusSession(authuser, dir);
 
-        BaseMessage StatusSession = GetStatusSession(authuser, dir); 
-        
 //        if (((ping) StatusSession).GetPing().equals("ErrorStatusSession"))
 //        {
 //            System.out.println(new Date().toString() + " фиксим Лох-Несский баг " + authuser.GetMail());//костыль
@@ -160,7 +154,7 @@ public class ServeOneJabber extends Thread
 //        }
         if (((ping) StatusSession).GetPing().equals("NewSession"))
         {
-            System.out.println(new Date().toString() + " NewSession " + authuser.GetMail());    
+            System.out.println(new Date().toString() + " NewSession " + authuser.GetMail());
             filename = CreateFileName(authuser);
         }
         else
@@ -174,7 +168,7 @@ public class ServeOneJabber extends Thread
 
             }
             else
-    //        //if (((ping) StatusSession).GetPing().equals("opens"))
+            //        //if (((ping) StatusSession).GetPing().equals("opens"))
             {
                 System.out.println(new Date().toString() + " Not new session " + authuser.GetMail());
                 filename = FileName(authuser);
@@ -187,19 +181,19 @@ public class ServeOneJabber extends Thread
             outputStream.writeObject(StatusSession);
 
             //System.out.println(new Date().toString() + " StatusSession will be send to " + authuser.GetMail());
-            System.out.println(new Date().toString() + ((ping)StatusSession).GetPing() + " StatusSession will be send to " + authuser.GetMail());
+            System.out.println(new Date().toString() + " " + ((ping) StatusSession).GetPing() + " StatusSession will be send to " + authuser.GetMail());
 
             BaseMessage bm;
             BaseMessage request;
             while ((bm = (BaseMessage) inputStream.readObject()) != null)
             {
                 List<BaseMessage> logsession = BaseMessage.GetList(filename);
-                if(bm.IsContaint(logsession))
+                if (logsession != null && bm.IsContaint(logsession))
                 {
                     //уже есть
                     return;
                 }
-                
+
                 //Сюда мы с Тошиком напишем реакцию сервера на каждый из классов, 
                 //которые может принять сервер. И будет нам счастье!
                 Class c = bm.getClass();
@@ -219,7 +213,6 @@ public class ServeOneJabber extends Thread
                     DataForRecord p = (DataForRecord) bm;
                     String pdfname = "";
 
-
                     if (p.getTypeEvent() == DataForRecord.TypeEvent.open)
                     {
                         System.out.println(new Date().toString() + " Is DFR.open " + authuser.GetMail());
@@ -236,7 +229,7 @@ public class ServeOneJabber extends Thread
                             if (loglist != null)
                             {
                                 tmp = FindPingInLog(TypeEvent.open.toString(), loglist);
-                                System.out.println(new Date().toString() + " " +TypeEvent.open.toString());
+                                System.out.println(new Date().toString() + " " + TypeEvent.open.toString());
                                 if (tmp == null)
                                 {
                                     pdfname = "FindPingInLogError";
@@ -259,13 +252,13 @@ public class ServeOneJabber extends Thread
 
                             System.out.println(new Date().toString() + " EmbeddedImageEmailUtil " + authuser.GetMail());
 
-                            for (String mail : maillist) 
+                            for (String mail : maillist)
                             {
                                 EmbeddedImageEmailUtil.send(
-                                    mail,
-                                    pdfname, //Тема сообщения
-                                    pdfname,
-                                    pdfdir + "/");
+                                        mail,
+                                        pdfname, //Тема сообщения
+                                        pdfname,
+                                        pdfdir + "/");
                                 System.out.println(new Date().toString() + " " + pdfname + " send to " + mail);
                             }
 
@@ -350,15 +343,15 @@ public class ServeOneJabber extends Thread
                                     GetDC(fullname),
                                     pdfdir + "/",
                                     pdfname);
-                            for (String mail : maillist) 
+                            for (String mail : maillist)
                             {
                                 EmbeddedImageEmailUtil.send(
-                                    mail,
-                                    pdfname,
-                                    pdfname,
-                                    pdfdir + "/");
+                                        mail,
+                                        pdfname,
+                                        pdfname,
+                                        pdfdir + "/");
 
-                            System.out.println(new Date().toString() + " " + pdfname + " send to " + mail);
+                                System.out.println(new Date().toString() + " " + pdfname + " send to " + mail);
 
                             }
 
@@ -374,6 +367,7 @@ public class ServeOneJabber extends Thread
                             long minutes1 = seconds1 / 60;
                             //double salary = minutes1 * 110 / 60;
                             double salary = minutes1 * GetSalary(salarylist, authuser.GetMail()) / 60;
+                            System.out.println(new Date().toString() + " " + "Salary " + authuser.GetMail() + " "+GetSalary(salarylist, authuser.GetMail()));
                             double massk[] = new double[4];//кепки
                             for (int i = 0; i < dfropen.matrix[4].length; i++)
                             {
@@ -469,7 +463,9 @@ public class ServeOneJabber extends Thread
                         {
                             pdfname = "DocumentException ";
                             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (MessagingException ex) {
+                        }
+                        catch (MessagingException ex)
+                        {
                             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }
@@ -497,7 +493,7 @@ public class ServeOneJabber extends Thread
                 if (c == DataCass.class)
                 {
                     System.out.println(new Date().toString() + " IsDataCass" + authuser.GetMail());
-                    
+
                     request = (BaseMessage) new ping("cassok");
                     outputStream.writeObject(request);
                     bm.AddMessage(fullname);
@@ -559,7 +555,7 @@ public class ServeOneJabber extends Thread
                         {
                             //System.out.println(new Date().toString() + " Auth Successful");
 
-                            AuthMessaging(log.GetUser(), outputStream, inputStream);
+                            AuthMessaging(log.GetUser(accounts), outputStream, inputStream);
                             return;
                         }
                         else
@@ -576,7 +572,7 @@ public class ServeOneJabber extends Thread
                     {
                         System.out.println(new Date().toString() + " ping");
 
-                        if(bm.GetVersion().equals(version))
+                        if (bm.GetVersion().equals(version))
                         {
                             ping p = (ping) bm;
                             BaseMessage request = (BaseMessage) new Strings(StringsConfigFile);
@@ -663,7 +659,6 @@ public class ServeOneJabber extends Thread
                             }
                             outputStream.writeObject(request);
 
-
                             System.out.println(new Date().toString() + " Forget request send");
                         }
                         else
@@ -673,8 +668,6 @@ public class ServeOneJabber extends Thread
 
                             System.out.println(new Date().toString() + " ForgetSobed");
                         }
-
-
 
                     }
                     if (c == LastMessage.class)
@@ -702,7 +695,6 @@ public class ServeOneJabber extends Thread
         System.out.println(new Date().toString() + " WTF O_o");
 
         BaseMessage bad = (BaseMessage) new ping("GetOut!");
-
 
     }
 
@@ -735,9 +727,6 @@ public class ServeOneJabber extends Thread
 
         System.out.println(new Date().toString() + " CreateFileName");
 
-
-
-
         Date date = us.GetDate();   //DEBUG учесть часовой пояс!
         String mail = us.GetMail();
         String surname = us.GetSurname();
@@ -745,7 +734,6 @@ public class ServeOneJabber extends Thread
         int year = date.getYear() + 1900;
         int mounth = date.getMonth() + 1;
         int day = date.getDate();
-
 
         //dotname = mail;
         String FileName = surname + " " + day + "." + mounth + "." + year;
@@ -755,7 +743,7 @@ public class ServeOneJabber extends Thread
         }
         else
         {
-            String path = CreateLogDirName(us);
+            String path = CreateLogDirName(us, logdir);
             String ls[] = new File(path).list();
 //            if (ls.length == 0)
 //            {
@@ -799,7 +787,7 @@ public class ServeOneJabber extends Thread
 //        }
 //    }
 
-    private String CreateLogDirName(user us)
+    private String CreateLogDirName(user us, String logDirPath)
     {
         Date date = us.GetDate();   //DEBUG учесть часовой пояс!
         String mail = us.GetMail();
@@ -810,15 +798,15 @@ public class ServeOneJabber extends Thread
         int day = date.getDate();
 
         //String DirName = mail + "_" + surname;
-
         if (!us.GetSuper())
         {
 
-            return "../log/" + year + "/" + mounth + "/" + day;
+            //return "../log/" + year + "/" + mounth + "/" + day;
+            return logDirPath + year + "/" + mounth + "/" + day;
         }
         else
         {
-            String path = "../log/" + year + "/" + mounth + "/" + day + "/" + "supers" + "/" + mail;
+            String path = logDirPath + year + "/" + mounth + "/" + day + "/" + "supers" + "/" + mail;
 
             return path;
 
@@ -835,9 +823,7 @@ public class ServeOneJabber extends Thread
         int mounth = date.getMonth() + 1;
         int day = date.getDate();
 
-
         String FileName = surname + " " + day + "." + mounth + "." + year;
-
 
         if (!us.GetSuper())
         {
@@ -845,7 +831,7 @@ public class ServeOneJabber extends Thread
         }
         else
         {
-            String path = CreateLogDirName(us);
+            String path = CreateLogDirName(us, logdir);
             String ls[] = new File(path).list();
 //            if (ls.length == 0)
 //            {
@@ -908,9 +894,9 @@ public class ServeOneJabber extends Thread
                                         continue;
                                     }
                                 }
-                                if(c == ping.class)
+                                if (c == ping.class)
                                 {
-                                    if(((ping)bm).GetPing().equals("open"))
+                                    if (((ping) bm).GetPing().equals("open"))
                                     {
                                         opens++;
                                     }
@@ -922,9 +908,8 @@ public class ServeOneJabber extends Thread
                                 {
                                     return (BaseMessage) new ping("open"); //открывается
                                 }
-                                
+
                                 //DEBUG Сессия в процессе открытия
-                                
                                 //
                                 if (open == 0 && close == 0) //Новая сессия
                                 {
@@ -938,7 +923,7 @@ public class ServeOneJabber extends Thread
                             }
                             else
                             {
-                                if(opens >= 1 && open == 0)
+                                if (opens >= 1 && open == 0)
                                 {
                                     return (BaseMessage) new ping("opens");
                                 }
@@ -1233,7 +1218,6 @@ public class ServeOneJabber extends Thread
                 return loglist;
             }
 
-
         }
         catch (FileNotFoundException ex)
         {
@@ -1254,63 +1238,63 @@ public class ServeOneJabber extends Thread
         return null;
     }
 
-    private List<String> GetMailList(String maillist) 
+    private List<String> GetMailList(String maillist)
     {
         List<String> mlist = null;
-        try 
+        try
         {
             BufferedReader br = new BufferedReader(new FileReader(maillist));
             String str;
-            mlist =  new ArrayList<String>();
-            while((str = br.readLine()) != null)
+            mlist = new ArrayList<String>();
+            while ((str = br.readLine()) != null)
             {
                 mlist.add(str);
             }
-        } 
-        catch (FileNotFoundException ex) 
+        }
+        catch (FileNotFoundException ex)
         {
             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (IOException ex) 
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
         }
         return mlist;
     }
 
-    private List<String> GetSalaryList(String salarylist) 
+    private List<String> GetSalaryList(String salarylist)
     {
         List<String> slist = null;
-        try 
+        try
         {
             BufferedReader br = new BufferedReader(new FileReader(salarylist));
             String str;
-            slist =  new ArrayList<String>();
-            while((str = br.readLine()) != null)
+            slist = new ArrayList<String>();
+            while ((str = br.readLine()) != null)
             {
                 slist.add(str);
             }
-        } 
-        catch (FileNotFoundException ex) 
+        }
+        catch (FileNotFoundException ex)
         {
             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (IOException ex) 
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(ServeOneJabber.class.getName()).log(Level.SEVERE, null, ex);
         }
         return slist;
     }
 
-    private double GetSalary(List<String> salarylist, String mail) 
+    private double GetSalary(List<String> salarylist, String mail)
     {
         double s = Double.parseDouble((salarylist.get(0)).split("\t")[0]);
-        for (String string : salarylist) 
+        for (String string : salarylist)
         {
             String[] insplits = string.split("\t");
-            if(insplits[0].equals(mail))
+            if (insplits[0].equals(mail))
             {
-                s =  Integer.parseInt(insplits[1]);
+                s = Integer.parseInt(insplits[1]);
             }
         }
         return s;
