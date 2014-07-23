@@ -131,56 +131,55 @@ public class BaseMessage
         List<BaseMessage> loglist = null;
         try
         {
-            FileInputStream fis = new FileInputStream(path);
-            ObjectInputStream read = new ObjectInputStream(fis);
-            if ((loglist = (List) read.readObject()) != null)
+            File f = new File(path);
+            if (f.exists())
             {
-                read.close();
-                fis.close();
+                FileInputStream fis = new FileInputStream(path);
+                ObjectInputStream read = new ObjectInputStream(fis);
+                if ((loglist = (List) read.readObject()) != null)
+                {
+                    read.close();
+                    fis.close();
+                }
             }
         }
-        catch (FileNotFoundException ex)
-        {
-            Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
-        }
-       
+
         catch (ClassNotFoundException ex)
         {
             Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
-        } 
-        catch (IOException ex) 
+        }
+        catch (IOException ex)
         {
             Logger.getLogger(BaseMessage.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return loglist;
     }
-    
+
     public boolean IsContaint(List<BaseMessage> list)
     {
-        for (BaseMessage baseMessage : list) 
+        for (BaseMessage baseMessage : list)
         {
-            if(this.equals(baseMessage))
+            if (this.equals(baseMessage))
             {
                 return true;
             }
         }
         return false;
     }
-    
+
     public boolean equals(BaseMessage bm)
     {
-        if(this.UI == bm.UI)
+        if (this.UI == bm.UI)
         {
             return true;
         }
-        else 
+        else
         {
             return false;
         }
     }
 }
-
-
 
 /* Location:           D:\Documents\NetBeans\IceTestClient\lib\BaseMessage.jar
 
