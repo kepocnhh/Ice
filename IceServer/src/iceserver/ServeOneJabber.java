@@ -95,8 +95,9 @@ public class ServeOneJabber extends Thread
     static List<String> maillist;
     static List<String> salarylist;
     static String StringsConfigFile;
+    static int timeCorrect;
 
-    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String version, String maillist, String salarylist, String StringsConfigFile) throws IOException
+    public ServeOneJabber(Socket s, String toreg, String accounts, String logdir, String fonts, String version, String maillist, String salarylist, String StringsConfigFile, String timeCorrect) throws IOException
     {
         socket = s;
         this.toreg = toreg;
@@ -108,6 +109,7 @@ public class ServeOneJabber extends Thread
         this.maillist = GetMailList(maillist);
         this.salarylist = GetSalaryList(salarylist);
         this.StringsConfigFile = StringsConfigFile;
+        this.timeCorrect = Integer.parseInt(timeCorrect);
 
         start(); // вызываем run()
     }
@@ -248,7 +250,7 @@ public class ServeOneJabber extends Thread
                             CreatePDF._CreatePDF(new Strings(StringsConfigFile), authuser,
                                     //GetDFR(DataForRecord.TypeEvent.open,fullname),
                                     p, tmp.GetDate(),
-                                    pdfdir + "/", pdfname);
+                                    pdfdir + "/", pdfname, timeCorrect);
 
                             System.out.println(new Date().toString() + " EmbeddedImageEmailUtil " + authuser.GetMail());
 

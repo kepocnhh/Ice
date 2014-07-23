@@ -32,9 +32,9 @@ public class IceServer
         // TODO code application logic here
         //ServerSocket s = new ServerSocket(PORT);
         //int PORT = Integer.parseInt(args[0]);
-        if(args.length!=9)
+        if(args.length!=10)
         {
-            System.out.println("\nargs[0] - PORT\nargs[1] - toreg\nargs[2] - accounts\nargs[3] - logdir\nargs[4] - fonts\nargs[5] - version\nargs[6] - mail list\nargs[7] - salary list\nargs[8] - config strings");
+            System.out.println("\nargs[0] - PORT\nargs[1] - toreg\nargs[2] - accounts\nargs[3] - logdir\nargs[4] - fonts\nargs[5] - version\nargs[6] - mail list\nargs[7] - salary list\nargs[8] - config strings\nargs[9] - time correct");
             return;
         }
         
@@ -55,7 +55,7 @@ public class IceServer
                 try
                 {
                     System.out.println("Goto ServeOneJabber");
-                    new ServeOneJabber(socket, args[1], args[2], args[3], args[4],  args[5], args[6], args[7], args[8]);
+                    new ServeOneJabber(socket, args[1], args[2], args[3], args[4],  args[5], args[6], args[7], args[8], args[9]);
                 }
                 catch (IOException e)
                 {
