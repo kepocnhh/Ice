@@ -140,6 +140,7 @@ public class BaseMessage
                 {
                     read.close();
                     fis.close();
+                    return loglist;
                 }
             }
         }
@@ -160,6 +161,7 @@ public class BaseMessage
     {
         for (BaseMessage baseMessage : list)
         {
+            System.out.println("UI " + this.UI + " "+ baseMessage.UI);
             if (this.UI == baseMessage.UI)
             {
                 return true;
