@@ -189,12 +189,16 @@ public class ServeOneJabber extends Thread
             BaseMessage request;
             while ((bm = (BaseMessage) inputStream.readObject()) != null)
             {
-                List<BaseMessage> logsession = BaseMessage.GetList(filename);
+                List<BaseMessage> logsession = BaseMessage.GetList(fullname);
+                System.out.println(new Date().toString() + " Logsession " + logsession);
+
                 if (logsession != null && bm.IsContaint(logsession))
                 {
                     //уже есть
+                    System.out.println(new Date().toString() + " поймали ещё одного лох-несса " + bm.toString());
                     return;
                 }
+                System.out.println("false");
 
                 //Сюда мы с Тошиком напишем реакцию сервера на каждый из классов, 
                 //которые может принять сервер. И будет нам счастье!
