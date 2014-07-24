@@ -161,7 +161,7 @@ public class BaseMessage
     {
         for (BaseMessage baseMessage : list)
         {
-            System.out.println("UI " + this.UI + " "+ baseMessage.UI);
+//            System.out.println("UI " + this.UI + " "+ baseMessage.UI);
             if (this.UI == baseMessage.UI)
             {
                 return true;
