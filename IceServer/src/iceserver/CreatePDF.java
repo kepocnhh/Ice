@@ -126,7 +126,7 @@ public class CreatePDF
         {
             myminutes="0"+myminutes;
         }
-        tbl.addCell(new Paragraph(strlist.PDFheader.get(3) + " - " +pingdate.getHours() + timeCorrect % 24  +":"+myminutes, font));
+        tbl.addCell(new Paragraph(strlist.PDFheader.get(3) + " - " + (pingdate.getHours() + timeCorrect) % 24  +":"+myminutes, font));
         myminutes=""+dfropen.GetDate().getMinutes();
         if(myminutes.length()==1)
         {
