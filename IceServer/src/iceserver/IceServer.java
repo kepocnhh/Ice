@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Date;
 
 /**
  *
@@ -43,7 +44,7 @@ public class IceServer
         System.setOut(st);
         
         ServerSocket s = new ServerSocket(Integer.parseInt(args[0]));
-        System.out.println("Server Started");
+        System.out.println(new Date().toString() +" Server Started");
         
        
         try
@@ -54,7 +55,7 @@ public class IceServer
                 Socket socket = s.accept();
                 try
                 {
-                    System.out.println("Goto ServeOneJabber");
+                    System.out.println(new Date().toString() + " Goto ServeOneJabber. InetAddress " + s.getInetAddress());
                     new ServeOneJabber(socket, args[1], args[2], args[3], args[4],  args[5], args[6], args[7], args[8], args[9]);
                 }
                 catch (IOException e)
