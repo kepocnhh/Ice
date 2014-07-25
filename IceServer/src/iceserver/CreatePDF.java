@@ -120,19 +120,19 @@ public class CreatePDF
         cll = new PdfPCell(new Phrase("Cell 6"));
         tbl = null;
         tbl = new PdfPTable(2);
-         String myminutes="";
-        myminutes=""+pingdate.getMinutes();
-        if(myminutes.length()==1)
+        String myminutes = "";
+        myminutes = "" + pingdate.getMinutes();
+        if (myminutes.length() == 1)
         {
-            myminutes="0"+myminutes;
+            myminutes = "0" + myminutes;
         }
-        tbl.addCell(new Paragraph(strlist.PDFheader.get(3) + " - " + (pingdate.getHours() + timeCorrect) % 24  +":"+myminutes, font));
-        myminutes=""+dfropen.GetDate().getMinutes();
-        if(myminutes.length()==1)
+        tbl.addCell(new Paragraph(strlist.PDFheader.get(3) + " - " + (pingdate.getHours() + timeCorrect) % 24 + ":" + myminutes, font));
+        myminutes = "" + dfropen.GetDate().getMinutes();
+        if (myminutes.length() == 1)
         {
-            myminutes="0"+myminutes;
+            myminutes = "0" + myminutes;
         }
-        tbl.addCell(new Paragraph("Время отпр. отчёта - "+dfropen.GetDate().getHours()+":"+myminutes, font));
+        tbl.addCell(new Paragraph("Время отпр. отчёта - " + (pingdate.getHours() + timeCorrect) % 24 + ":" + myminutes, font));
         cll.addElement(tbl);
         //
         cll.setBorderColor(CW);
@@ -140,7 +140,7 @@ public class CreatePDF
         nestedTable.addCell(cll);//03///////////////////////////////////////////
         tbl.flushContent();
         cll = new PdfPCell(new Paragraph("Cell 3"));
-        double dmass[]=new double[dfropen.matrix[0].length];
+        double dmass[] = new double[dfropen.matrix[0].length];
         double amountbag = 0;//количество мешков
         for (int i = 0; i < dfropen.matrix[0].length; i++)
         {
@@ -151,7 +151,7 @@ public class CreatePDF
                 + "-\t"
                 + "-\t"
                 + "-\t").split("\t");
-        tbl = createtable(dfropen.matrix[0],dmass ,dmass,dmass,
+        tbl = createtable(dfropen.matrix[0], dmass, dmass, dmass,
                 getmass(strlist.DataSubSale, 0), strlist.DataSale.get(0), strlist.SessionTypes, str);
         tbl.setWidthPercentage(111);
         cll.addElement(tbl);
@@ -178,13 +178,13 @@ public class CreatePDF
                 + "ЗАКРЫТИЕ").split("\t");
         strl.add(getmass(strlist.DataSubSale, 5)[0]);
         strl.add(getmass(strlist.DataSubSale, 5)[1]);
-        dmass=new double[dfropen.matrix[5].length];
-        tbl = createsimple3table(str, strl, dfropen.matrix[5],dmass);
+        dmass = new double[dfropen.matrix[5].length];
+        tbl = createsimple3table(str, strl, dfropen.matrix[5], dmass);
         tbl.setWidthPercentage(88);
         cll.addElement(tbl);
         cll.addElement(new Paragraph(" "));
-        dmass=new double[dfropen.matrix[2].length];
-        tbl = createtable(dfropen.matrix[2],dmass,dmass,dmass,
+        dmass = new double[dfropen.matrix[2].length];
+        tbl = createtable(dfropen.matrix[2], dmass, dmass, dmass,
                 getmass(strlist.DataSubSale, 2), "Разное", strlist.SessionTypes, null);
         tbl.setWidthPercentage(88);
         cll.addElement(tbl);
@@ -199,19 +199,19 @@ public class CreatePDF
         {
             weightall += dfropen.matrix[1][i];
         }
-            weightin= amountbag * 2400;
+        weightin = amountbag * 2400;
         str = ("ВСЕГО\t"
                 + weightall + "\t"
-                +"-\t"
-                +"-\t"
-                +"-\t"
+                + "-\t"
+                + "-\t"
+                + "-\t"
                 + "ВЕС В СКЛАД.ХОЛ.\t"
                 + weightin + "\t"
-                +"-\t"
-                +"-\t"
-                +"-\t").split("\t");
-        dmass=new double[dfropen.matrix[1].length];
-        tbl = createtable(dfropen.matrix[1],dmass,dmass,dmass,
+                + "-\t"
+                + "-\t"
+                + "-\t").split("\t");
+        dmass = new double[dfropen.matrix[1].length];
+        tbl = createtable(dfropen.matrix[1], dmass, dmass, dmass,
                 getmass(strlist.DataSubSale, 1), strlist.DataSale.get(1), strlist.SessionTypes, str);
         tbl.setWidthPercentage(111);
         cll.addElement(tbl);
@@ -224,14 +224,14 @@ public class CreatePDF
         double masss[] = new double[1];//стаканы
         double massk[] = new double[1];//кепки
         double masst[] = new double[1];//термосы
-        dmass=new double[dfropen.matrix[3].length];
-        masss = getmass(dfropen.matrix[3],dmass,dmass,dmass, 0);
+        dmass = new double[dfropen.matrix[3].length];
+        masss = getmass(dfropen.matrix[3], dmass, dmass, dmass, 0);
         massk = new double[4];
         for (int i = 0; i < dfropen.matrix[4].length; i++)
         {
             massk[0] += dfropen.matrix[4][i];
         }
-        masst = getmass(dfropen.matrix[3],dmass,dmass,dmass, 1);
+        masst = getmass(dfropen.matrix[3], dmass, dmass, dmass, 1);
         str = (" \t"
                 + "Стаканчик\t"
                 + "Кепка\t"
@@ -244,8 +244,8 @@ public class CreatePDF
         nestedTable.addCell(cll);//5///////////////////////////////////////////
         tbl.flushContent();
         cll = new PdfPCell(new Paragraph("Cell 3"));
-        dmass=new double[dfropen.matrix[4].length];
-        tbl = createtable(dfropen.matrix[4],dmass,dmass,dmass,
+        dmass = new double[dfropen.matrix[4].length];
+        tbl = createtable(dfropen.matrix[4], dmass, dmass, dmass,
                 getmass(strlist.DataSubSale, 4), strlist.DataSale.get(4), strlist.SessionTypes, null);
         tbl.setWidthPercentage(88);
         cll.addElement(new Paragraph(" "));
@@ -264,7 +264,7 @@ public class CreatePDF
             DataForRecord dfrdrug,
             DataForRecord dfrsteal,
             DataForRecord dfrclose,
-            Date pingdate,Date pingdateend,
+            Date pingdate, Date pingdateend,
             double cass[], double prom[], double inkd[], String inks[],
             String pdfp,
             String pdfn) throws DocumentException
@@ -276,7 +276,7 @@ public class CreatePDF
         DataForRecord dfr;
         String[] str;
         List<String> strl = new ArrayList<String>();
-        int hoursbegin=10;//начало раб дня
+        int hoursbegin = 10;//начало раб дня
         double forcass[];
         //выручки
         double cashall;//всего выручка
@@ -305,7 +305,7 @@ public class CreatePDF
         double salary;//зарплата за время
         double salaryprcnt;//зарплата за проценты
         double salaryall;//зарплата
-        String mulcttitle="ШТРАФ";
+        String mulcttitle = "ШТРАФ";
         int num = 5;
         try
         {
@@ -375,36 +375,36 @@ public class CreatePDF
         cll = new PdfPCell(new Phrase("Cell 6"));
         tbl = null;
         tbl = new PdfPTable(2);
-         String myminutes="";
-        myminutes=""+pingdate.getMinutes();
-        if(myminutes.length()==1)
+        String myminutes = "";
+        myminutes = "" + pingdate.getMinutes();
+        if (myminutes.length() == 1)
         {
-            myminutes="0"+myminutes;
+            myminutes = "0" + myminutes;
         }
-        tbl.addCell(new Paragraph(strlist.PDFheader.get(3) + " - " +pingdate.getHours()+":"+myminutes, font));
-        myminutes=""+dfropen.GetDate().getMinutes();
-        if(myminutes.length()==1)
+        tbl.addCell(new Paragraph(strlist.PDFheader.get(3) + " - " + pingdate.getHours() + ":" + myminutes, font));
+        myminutes = "" + dfropen.GetDate().getMinutes();
+        if (myminutes.length() == 1)
         {
-            myminutes="0"+myminutes;
+            myminutes = "0" + myminutes;
         }
-        tbl.addCell(new Paragraph("Время отпр. отчёта - "+dfropen.GetDate().getHours()+":"+myminutes, font));
+        tbl.addCell(new Paragraph("Время отпр. отчёта - " + dfropen.GetDate().getHours() + ":" + myminutes, font));
         cll.addElement(tbl);
         //tbl.flushContent();
         tbl = new PdfPTable(2);
         //cll.addElement(new Paragraph(strlist.PDFheader.get(4), font));
-        String myminutes2="";
-        myminutes2=""+pingdateend.getMinutes();
-        if(myminutes2.length()==1)
+        String myminutes2 = "";
+        myminutes2 = "" + pingdateend.getMinutes();
+        if (myminutes2.length() == 1)
         {
-            myminutes2="0"+myminutes2;
+            myminutes2 = "0" + myminutes2;
         }
-        tbl.addCell(new Paragraph(strlist.PDFheader.get(4)+" - " + pingdateend.getHours()+":"+myminutes2, font));
-        myminutes2=""+dfrclose.GetDate().getMinutes();
-        if(myminutes2.length()==1)
+        tbl.addCell(new Paragraph(strlist.PDFheader.get(4) + " - " + pingdateend.getHours() + ":" + myminutes2, font));
+        myminutes2 = "" + dfrclose.GetDate().getMinutes();
+        if (myminutes2.length() == 1)
         {
-            myminutes2="0"+myminutes2;
+            myminutes2 = "0" + myminutes2;
         }
-        tbl.addCell(new Paragraph("Время отпр. отчёта - " + dfrclose.GetDate().getHours()+":"+myminutes2, font));
+        tbl.addCell(new Paragraph("Время отпр. отчёта - " + dfrclose.GetDate().getHours() + ":" + myminutes2, font));
         cll.addElement(tbl);
         cll.setBorderColor(CW);
         cll.setBorderWidth(BW);
@@ -608,34 +608,36 @@ public class CreatePDF
         {
             //mulct = (weightskt - weightsell);
             //mulcttitle+=" - недосып";
-                mulct = 0;
-                mulcttitle+=" - вес";
+            mulct = 0;
+            mulcttitle += " - вес";
         }
         else
         {
-            if (weightsell -  weightskt > 200)
+            if (weightsell - weightskt > 200)
             {
                 mulct = (weightskt - weightsell) * 1.66;
-                mulcttitle+=" - пересып";
+                mulcttitle += " - пересып";
             }
             else
             {
                 mulct = 0;
-                mulcttitle+=" - вес";
+                mulcttitle += " - вес";
             }
         }
         tbl.addCell(new Paragraph(mulcttitle, font));
         tbl.addCell(new Paragraph(" " + mulct));
-        if(dfropen.GetDate().getHours()<hoursbegin)
+        if (dfropen.GetDate().getHours() < hoursbegin)
         {
-            mulctdelay=0;
+            mulctdelay = 0;
         }
         else
         {
-            mulctdelay=(dfropen.GetDate().getHours()-hoursbegin)*60*15;
-            if(mulctdelay<0)
-                mulctdelay=0;
-            mulctdelay+=dfropen.GetDate().getMinutes()*15;
+            mulctdelay = (dfropen.GetDate().getHours() - hoursbegin) * 60 * 15;
+            if (mulctdelay < 0)
+            {
+                mulctdelay = 0;
+            }
+            mulctdelay += dfropen.GetDate().getMinutes() * 15;
         }
         tbl.addCell(new Paragraph("ШТРАФ - опоздание", font));
         tbl.addCell(new Paragraph(" " + mulctdelay));
@@ -677,17 +679,17 @@ public class CreatePDF
         long diff1 = calendarclose1.getTimeInMillis() - calendaropen1.getTimeInMillis();
         long seconds1 = diff1 / 1000;
         long minutes1 = seconds1 / 60;
-        salary=minutes1*110/60;
+        salary = minutes1 * 110 / 60;
         tbl.addCell(new Paragraph("За время работы", font));
         tbl.addCell(new Paragraph(" " + salary));
-        salaryprcnt=(cashk[0]/100)*5;
+        salaryprcnt = (cashk[0] / 100) * 5;
         tbl.addCell(new Paragraph("Плюс за проценты", font));
         tbl.addCell(new Paragraph(" " + salaryprcnt));
         tbl.addCell(new Paragraph("Всего", font));
-        salaryall=salaryprcnt + salary;
+        salaryall = salaryprcnt + salary;
         tbl.addCell(new Paragraph(" " + (salaryall)));
         tbl.addCell(new Paragraph("Штраф", font));
-        mulctall=mulctdelay + mulct;
+        mulctall = mulctdelay + mulct;
         tbl.addCell(new Paragraph(" " + (mulctall)));
         tbl.addCell(new Paragraph("Итого", font));
         tbl.addCell(new Paragraph(" " + (salaryall - mulctall)));
@@ -697,178 +699,178 @@ public class CreatePDF
         cll.setBorderWidth(BW);
         nestedTable.addCell(cll);//3///////////////////////////////////////////
         /*
-        tbl.flushContent();
-        cll = new PdfPCell(new Paragraph("Cell 3"));
-        for (int i = 0; i < dfropen.matrix[1].length; i++)
-        {
-            weightall[0] += dfropen.matrix[1][i];
-        }
-        for (int i = 0; i < dfrdrug.matrix[1].length; i++)
-        {
-            weightall[1] += dfrdrug.matrix[1][i];
-        }
-        for (int i = 0; i < dfrsteal.matrix[1].length; i++)
-        {
-            weightall[2] += dfrsteal.matrix[1][i];
-        }
-        for (int i = 0; i < dfrclose.matrix[1].length; i++)
-        {
-            weightall[3] += dfrclose.matrix[1][i];
-        }
-        for (int i = 0; i < amountbag.length; i++)
-        {
-            weightin[i] = amountbag[i] * 2400;
-        }
-        for (int i = 0; i < weightin.length; i++)
-        {
-            weightall[i] += weightin[i];
-        }
-        str = ("ВСЕГО\t"
-                + weightall[0] + "\t"
-                + weightall[1] + "\t"
-                + weightall[2] + "\t"
-                + weightall[3] + "\t"
-                + "ВЕС В СКЛАД.ХОЛ.\t"
-                + weightin[0] + "\t"
-                + weightin[1] + "\t"
-                + weightin[2] + "\t"
-                + weightin[3]).split("\t");
-        tbl = createtable(dfropen.matrix[1], dfrdrug.matrix[1], dfrsteal.matrix[1], dfrclose.matrix[1],
-                getmass(strlist.DataSubSale, 1), strlist.DataSale.get(1), strlist.SessionTypes, str);
-        tbl.setWidthPercentage(111);
-        cll.addElement(tbl);
-        cll.setColspan(1);
-        cll.setBorderColor(CW);
-        cll.setBorderWidth(BW);
-        nestedTable.addCell(cll);//4///////////////////////////////////////////
-        tbl.flushContent();
-        cll = new PdfPCell(new Paragraph("Cell 3"));
-        str = ("Продано штук\t"
-                + amounts + "\t"
-                + amountk + "\t"
-                + amountt + "\t"
-                + " \t"
-                + "Стаканчик\t"
-                + "Кепка\t"
-                + "Термос").split("\t");
-        tbl = createtable(masss, massk, masst, "ОТКРЫТИЕ\tПРИХОД\tУХОД\tЗАКРЫТИЕ".split("\t"), strlist.DataSale.get(3), str);
-        tbl.setWidthPercentage(88);
-        cll.addElement(tbl);
-        weights[0] = amounts * 60;
-        weightk[0] = amountk * 80;
-        weightt[0] = amountt * 240;
-        str = (" \tСтаканчик\t"
-                + "Кепка\t"
-                + "Термос").split("\t");
-        tbl = createtable(weights, weightk, weightt,
-                "Вес".split("\t"), "Вес проданных стаканчиков/кепок/термосов", str);
-        tbl.setWidthPercentage(88);
-        tbl.addCell(new PdfPCell(new Phrase("Общий вес", font)));
-        weightskt = (weights[0] + weightk[0] + weightt[0]);
-        PdfPCell cell2 = new PdfPCell(new Phrase("" + weightskt, font));
-        cell2.setColspan(3);
-        tbl.addCell(cell2);
-        cll.addElement(new Paragraph(" "));
-        cll.addElement(tbl);
-        cll.setBorderColor(CW);
-        cll.setBorderWidth(BW);
-        nestedTable.addCell(cll);//5///////////////////////////////////////////
-        tbl.flushContent();
-        cll = new PdfPCell(new Paragraph("Cell 3"));
-        tbl = createtable(dfropen.matrix[4], dfrdrug.matrix[4], dfrsteal.matrix[4], dfrclose.matrix[4],
-                getmass(strlist.DataSubSale, 4), strlist.DataSale.get(4), strlist.SessionTypes, null);
-        tbl.setWidthPercentage(99);
-        cll.addElement(new Paragraph(" "));
-        cll.addElement(tbl);
-        cll.setBorderColor(CW);
-        cll.setBorderWidth(BW);
-        nestedTable.addCell(cll);//6///////////////////////////////////////////
-        cll = new PdfPCell(new Phrase("Cell 6"));
-        cll.addElement(new Paragraph("ВЕС ВСЕГО ПРОДАННОГО МОРОЖЕННОГО" + slashn + "ИЗ УЧЁТА оставшегося мороженного -", font));
-        weightsell = weightall[0] + weightall[1] - weightall[2] - weightall[3];
-        tbl = new PdfPTable(1);
-        tbl.addCell(new Paragraph(" " + weightsell));
-        cll.addElement(tbl);
-        cll.setBorderColor(CW);
-        cll.setBorderWidth(BW);
-        nestedTable.addCell(cll);//8///////////////////////////////////////////
-        cll = new PdfPCell(new Phrase("Cell 7"));
-        cll.addElement(new Paragraph("ВЕС ВСЕГО ПРОДАННОГО МОРОЖЕННОГО" + slashn + "ИЗ УЧЁТА СТАКАНОВ, КЕПОК И ТЕРМОСОВ - ", font));
-        tbl.flushContent();
-        tbl = new PdfPTable(1);
-        tbl.addCell(new Paragraph(" " + weightskt));
-        cll.addElement(tbl);
-        tbl = new PdfPTable(2);
-        //String mulcttitle="ШТРАФ";
-        if (weightskt - weightsell > 200)
-        {
-            //mulct = (weightskt - weightsell);
-            //mulcttitle+=" - недосып";
-                mulct = 0;
-                mulcttitle+=" - вес";
-        }
-        else
-        {
-            if (weightsell -  weightskt > 200)
-            {
-                mulct = (weightskt - weightsell) * 1.66;
-                mulcttitle+=" - пересып";
-            }
-            else
-            {
-                mulct = 0;
-                mulcttitle+=" - вес";
-            }
-        }
-        tbl.addCell(new Paragraph(mulcttitle, font));
-        tbl.addCell(new Paragraph(" " + mulct));
-        if(dfropen.GetDate().getHours()<hoursbegin)
-        {
-            mulctdelay=0;
-        }
-        else
-        {
-            mulctdelay=(dfropen.GetDate().getHours()-hoursbegin)*60*15;
-            if(mulctdelay<0)
-                mulctdelay=0;
-            mulctdelay+=dfropen.GetDate().getMinutes()*15;
-        }
-        tbl.addCell(new Paragraph("ШТРАФ - опоздание", font));
-        tbl.addCell(new Paragraph(" " + mulctdelay));
-        cll.addElement(tbl);
-        cll.setBorderColor(CW);
-        cll.setBorderWidth(BW);
-        nestedTable.addCell(cll);//9///////////////////////////////////////////
-        cll = new PdfPCell(new Phrase("Cell 7"));
-        cll.addElement(new Paragraph(slashn+"Заработанные деньги", font));
-        tbl.flushContent();
-        tbl = new PdfPTable(2);
-        Calendar calendaropen = Calendar.getInstance();
-        calendaropen.setTime(dfropen.GetDate());
-        Calendar calendarclose = Calendar.getInstance();
-        calendarclose.setTime(dfrclose.GetDate());
-        long diff = calendarclose.getTimeInMillis() - calendaropen.getTimeInMillis();
-        long seconds = diff / 1000;
-        long minutes = seconds / 60;
-        salary=minutes*110/60;
-        tbl.addCell(new Paragraph("За время работы", font));
-        tbl.addCell(new Paragraph(" " + salary));
-        salaryprcnt=(cashk[0]/100)*5;
-        tbl.addCell(new Paragraph("Плюс за проценты", font));
-        tbl.addCell(new Paragraph(" " + salaryprcnt));
-        tbl.addCell(new Paragraph("Всего", font));
-        salaryall=salaryprcnt + salary;
-        tbl.addCell(new Paragraph(" " + (salaryall)));
-        tbl.addCell(new Paragraph("Штраф", font));
-        mulctall=mulctdelay + mulct;
-        tbl.addCell(new Paragraph(" " + (mulctall)));
-        tbl.addCell(new Paragraph("Итого", font));
-        tbl.addCell(new Paragraph(" " + (salaryall - mulctall)));
-        cll.addElement(tbl);
-        cll.setBorderColor(CW);
-        cll.setBorderWidth(BW);
-        nestedTable.addCell(cll);//10//////////////////////////////////////////
-        */
+         tbl.flushContent();
+         cll = new PdfPCell(new Paragraph("Cell 3"));
+         for (int i = 0; i < dfropen.matrix[1].length; i++)
+         {
+         weightall[0] += dfropen.matrix[1][i];
+         }
+         for (int i = 0; i < dfrdrug.matrix[1].length; i++)
+         {
+         weightall[1] += dfrdrug.matrix[1][i];
+         }
+         for (int i = 0; i < dfrsteal.matrix[1].length; i++)
+         {
+         weightall[2] += dfrsteal.matrix[1][i];
+         }
+         for (int i = 0; i < dfrclose.matrix[1].length; i++)
+         {
+         weightall[3] += dfrclose.matrix[1][i];
+         }
+         for (int i = 0; i < amountbag.length; i++)
+         {
+         weightin[i] = amountbag[i] * 2400;
+         }
+         for (int i = 0; i < weightin.length; i++)
+         {
+         weightall[i] += weightin[i];
+         }
+         str = ("ВСЕГО\t"
+         + weightall[0] + "\t"
+         + weightall[1] + "\t"
+         + weightall[2] + "\t"
+         + weightall[3] + "\t"
+         + "ВЕС В СКЛАД.ХОЛ.\t"
+         + weightin[0] + "\t"
+         + weightin[1] + "\t"
+         + weightin[2] + "\t"
+         + weightin[3]).split("\t");
+         tbl = createtable(dfropen.matrix[1], dfrdrug.matrix[1], dfrsteal.matrix[1], dfrclose.matrix[1],
+         getmass(strlist.DataSubSale, 1), strlist.DataSale.get(1), strlist.SessionTypes, str);
+         tbl.setWidthPercentage(111);
+         cll.addElement(tbl);
+         cll.setColspan(1);
+         cll.setBorderColor(CW);
+         cll.setBorderWidth(BW);
+         nestedTable.addCell(cll);//4///////////////////////////////////////////
+         tbl.flushContent();
+         cll = new PdfPCell(new Paragraph("Cell 3"));
+         str = ("Продано штук\t"
+         + amounts + "\t"
+         + amountk + "\t"
+         + amountt + "\t"
+         + " \t"
+         + "Стаканчик\t"
+         + "Кепка\t"
+         + "Термос").split("\t");
+         tbl = createtable(masss, massk, masst, "ОТКРЫТИЕ\tПРИХОД\tУХОД\tЗАКРЫТИЕ".split("\t"), strlist.DataSale.get(3), str);
+         tbl.setWidthPercentage(88);
+         cll.addElement(tbl);
+         weights[0] = amounts * 60;
+         weightk[0] = amountk * 80;
+         weightt[0] = amountt * 240;
+         str = (" \tСтаканчик\t"
+         + "Кепка\t"
+         + "Термос").split("\t");
+         tbl = createtable(weights, weightk, weightt,
+         "Вес".split("\t"), "Вес проданных стаканчиков/кепок/термосов", str);
+         tbl.setWidthPercentage(88);
+         tbl.addCell(new PdfPCell(new Phrase("Общий вес", font)));
+         weightskt = (weights[0] + weightk[0] + weightt[0]);
+         PdfPCell cell2 = new PdfPCell(new Phrase("" + weightskt, font));
+         cell2.setColspan(3);
+         tbl.addCell(cell2);
+         cll.addElement(new Paragraph(" "));
+         cll.addElement(tbl);
+         cll.setBorderColor(CW);
+         cll.setBorderWidth(BW);
+         nestedTable.addCell(cll);//5///////////////////////////////////////////
+         tbl.flushContent();
+         cll = new PdfPCell(new Paragraph("Cell 3"));
+         tbl = createtable(dfropen.matrix[4], dfrdrug.matrix[4], dfrsteal.matrix[4], dfrclose.matrix[4],
+         getmass(strlist.DataSubSale, 4), strlist.DataSale.get(4), strlist.SessionTypes, null);
+         tbl.setWidthPercentage(99);
+         cll.addElement(new Paragraph(" "));
+         cll.addElement(tbl);
+         cll.setBorderColor(CW);
+         cll.setBorderWidth(BW);
+         nestedTable.addCell(cll);//6///////////////////////////////////////////
+         cll = new PdfPCell(new Phrase("Cell 6"));
+         cll.addElement(new Paragraph("ВЕС ВСЕГО ПРОДАННОГО МОРОЖЕННОГО" + slashn + "ИЗ УЧЁТА оставшегося мороженного -", font));
+         weightsell = weightall[0] + weightall[1] - weightall[2] - weightall[3];
+         tbl = new PdfPTable(1);
+         tbl.addCell(new Paragraph(" " + weightsell));
+         cll.addElement(tbl);
+         cll.setBorderColor(CW);
+         cll.setBorderWidth(BW);
+         nestedTable.addCell(cll);//8///////////////////////////////////////////
+         cll = new PdfPCell(new Phrase("Cell 7"));
+         cll.addElement(new Paragraph("ВЕС ВСЕГО ПРОДАННОГО МОРОЖЕННОГО" + slashn + "ИЗ УЧЁТА СТАКАНОВ, КЕПОК И ТЕРМОСОВ - ", font));
+         tbl.flushContent();
+         tbl = new PdfPTable(1);
+         tbl.addCell(new Paragraph(" " + weightskt));
+         cll.addElement(tbl);
+         tbl = new PdfPTable(2);
+         //String mulcttitle="ШТРАФ";
+         if (weightskt - weightsell > 200)
+         {
+         //mulct = (weightskt - weightsell);
+         //mulcttitle+=" - недосып";
+         mulct = 0;
+         mulcttitle+=" - вес";
+         }
+         else
+         {
+         if (weightsell -  weightskt > 200)
+         {
+         mulct = (weightskt - weightsell) * 1.66;
+         mulcttitle+=" - пересып";
+         }
+         else
+         {
+         mulct = 0;
+         mulcttitle+=" - вес";
+         }
+         }
+         tbl.addCell(new Paragraph(mulcttitle, font));
+         tbl.addCell(new Paragraph(" " + mulct));
+         if(dfropen.GetDate().getHours()<hoursbegin)
+         {
+         mulctdelay=0;
+         }
+         else
+         {
+         mulctdelay=(dfropen.GetDate().getHours()-hoursbegin)*60*15;
+         if(mulctdelay<0)
+         mulctdelay=0;
+         mulctdelay+=dfropen.GetDate().getMinutes()*15;
+         }
+         tbl.addCell(new Paragraph("ШТРАФ - опоздание", font));
+         tbl.addCell(new Paragraph(" " + mulctdelay));
+         cll.addElement(tbl);
+         cll.setBorderColor(CW);
+         cll.setBorderWidth(BW);
+         nestedTable.addCell(cll);//9///////////////////////////////////////////
+         cll = new PdfPCell(new Phrase("Cell 7"));
+         cll.addElement(new Paragraph(slashn+"Заработанные деньги", font));
+         tbl.flushContent();
+         tbl = new PdfPTable(2);
+         Calendar calendaropen = Calendar.getInstance();
+         calendaropen.setTime(dfropen.GetDate());
+         Calendar calendarclose = Calendar.getInstance();
+         calendarclose.setTime(dfrclose.GetDate());
+         long diff = calendarclose.getTimeInMillis() - calendaropen.getTimeInMillis();
+         long seconds = diff / 1000;
+         long minutes = seconds / 60;
+         salary=minutes*110/60;
+         tbl.addCell(new Paragraph("За время работы", font));
+         tbl.addCell(new Paragraph(" " + salary));
+         salaryprcnt=(cashk[0]/100)*5;
+         tbl.addCell(new Paragraph("Плюс за проценты", font));
+         tbl.addCell(new Paragraph(" " + salaryprcnt));
+         tbl.addCell(new Paragraph("Всего", font));
+         salaryall=salaryprcnt + salary;
+         tbl.addCell(new Paragraph(" " + (salaryall)));
+         tbl.addCell(new Paragraph("Штраф", font));
+         mulctall=mulctdelay + mulct;
+         tbl.addCell(new Paragraph(" " + (mulctall)));
+         tbl.addCell(new Paragraph("Итого", font));
+         tbl.addCell(new Paragraph(" " + (salaryall - mulctall)));
+         cll.addElement(tbl);
+         cll.setBorderColor(CW);
+         cll.setBorderWidth(BW);
+         nestedTable.addCell(cll);//10//////////////////////////////////////////
+         */
         //
         document.add(nestedTable);
         document.close();
@@ -887,7 +889,7 @@ public class CreatePDF
         //BaseFont bf = BaseFont.createFont("../M-R.otf", BaseFont.IDENTITY_H, true);
         BaseFont bf = BaseFont.createFont(ServeOneJabber.fonts, BaseFont.IDENTITY_H, true);
         font = new Font(bf, 8, Font.NORMAL);
-        fonttitle = new Font(bf,16, Font.BOLDITALIC);
+        fonttitle = new Font(bf, 16, Font.BOLDITALIC);
     }
 
     private static PdfPCell addcl(String s) throws DocumentException
@@ -1005,10 +1007,12 @@ public class CreatePDF
     {
         return today.getDate() + " " + monthtoString(today.getMonth() + 1) + " " + (1900 + today.getYear()) + " " + weektoString(today.getDay());
     }
+
     static String dateweektoString(Date today)
     {
         return weektoString(today.getDay());
     }
+
     static String dateonly(Date today)
     {
         return today.getDate() + " " + monthtoString(today.getMonth() + 1) + " " + (1900 + today.getYear());
