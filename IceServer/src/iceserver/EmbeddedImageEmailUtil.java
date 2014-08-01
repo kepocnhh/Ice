@@ -184,8 +184,8 @@ public class EmbeddedImageEmailUtil
         mapInlineImages.put("image1",imgpath);
         String host = "smtp.gmail.com";
         String port = "587";
-        final String userName="iceandgoit@gmail.com";
-        final String password="delaemicecreame";
+        final String userName="";
+        final String password="";
         Properties properties = new Properties();
         properties.put("mail.smtp.host", host);
         properties.put("mail.smtp.port", port);
